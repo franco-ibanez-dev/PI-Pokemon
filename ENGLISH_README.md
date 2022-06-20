@@ -117,4 +117,50 @@ __Main Route__: It must contain:
 - [ ] Buttons/Options to either sort by ascending or descending order the pokemons, to sort them by alphabetical order and to sort them by attack.
 - [ ] Pagination to search and show the next pokemons, 12 pokemons by page.
 
-__IMPORTANT__: 
+__IMPORTANT__: Inside the maini route it must be shown both the pokemons originated on the API and those originated on the database. Secondly, if you study the endpoint that returns all the pokemons you'll see that it doesn't show its information but and URL to do another request a subresquest to obtain the data from there. You'll have to make a subrequest per pokemon to obtain its image and types. Because this can make the search to slow, you can limit the total result to 40 pokemon.
+
+__Pokemon's details route__: It must contain:
+- [ ] The fields shown on the main route for each pokemon (image, name and types).
+- [ ] Pokemon's number (id)
+- [ ] Statistics (Life, attack, defense, velocitiy)
+- [ ] Heigth and weigth.
+
+__Creation route__: It must cotain:
+
+- [ ] A __JavaScript controlled__ form with the mentioned fields on the Pokemon details.
+- [ ] The option to select/add more than one pokemon type.
+- [ ] Button/Option to create a new Pokemon.
+
+> It is a requirement that the creation form is validated with JavaScript and not only with HTML validations. You can add the validations you want. By example: The Pokemon's name can't contain numeric characters, the heigth can't be major that certain value, and so on.
+
+## Database
+The database model must have the followings entities (Those properties mark with asterisk must be mandatory):
+
+- [ ] Pokemon with the following properties:
+    - ID (Pokemon number) * : It can not be an ID from an existing pokeapi pokemon.
+    - Name *
+    - Attack
+    - Defense 
+    - Speed
+    - Heigth
+    - Weigth
+
+ - [ ] Type with the followings properties:
+    - ID
+    - Name
+
+The relationship between them must be many-to-many because one pokemon may belong to more than one type and a type may include many pokemons.
+
+__IMPORTANT__: It's not allowed to use the filters, sorts and paginations offered by the external API, all of the functionalities must be developed by you.
+
+- [ ] __GET /pokemons__:
+    - Retrieve a pokemons list from pokeapi.
+    - Return only the necessary data for the main page.
+- [ ] __GET /pokemons/{idPokemon}__:
+    - Obtain detailed pokemon on particular.
+    - It must retrieve only the data ask by the Pokemon's deatails route.
+    - Consider that it must work with an external api originated id and the database originated id.
+- [ ] __GET /pokemons?name="..."__:
+    - Obtain the pokemon whose name match the name brought by the query parameter (It can be from pokeapi or created by us.)
+- [ ] __Get /types__:
+    - 
