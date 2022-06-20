@@ -163,4 +163,12 @@ __IMPORTANT__: It's not allowed to use the filters, sorts and paginations offere
 - [ ] __GET /pokemons?name="..."__:
     - Obtain the pokemon whose name match the name brought by the query parameter (It can be from pokeapi or created by us.)
 - [ ] __Get /types__:
-    - 
+    -  Obtain all pokemons types availables.
+    -  At first you must obtain them from the external API then save them on your database to finally use them from there.
+
+## Testing
+- [ ] At least one component from the frontend must have its tests.
+- [ ] At least one route from the backend must have its tests.
+- [ ] At least one model from the database must have its tests.
+
+# Pokemon-Individual-Project
