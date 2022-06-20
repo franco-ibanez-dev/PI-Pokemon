@@ -101,4 +101,20 @@ __IMPORTANT__: It isn't allowed the use of external libraries to apply styles to
 
 ## Frontend
 
+It must be developed an React/Redux application that contains the following screens/routes.
 
+__Landing Page__: You must build a landing page with:
+- [ ] Some background image representative of the project theme.
+- [ ] A button to go into the home page (`main route`)
+
+__Main Route__: It must contain:
+
+- [ ] Search input to find pokemons by name(The search must be precise, it must only retrieve it if the entered name is complete.)
+- [ ] An area where the listed pokemons will be. At the beginning it must charge the first results obtained from the `GET /pokemons` route and it must show its:
+    - Image
+    - Name
+    - Types (Electric, Fire, Water and so on)
+- [ ] Buttons/Options to either sort by ascending or descending order the pokemons, to sort them by alphabetical order and to sort them by attack.
+- [ ] Pagination to search and show the next pokemons, 12 pokemons by page.
+
+__IMPORTANT__: 
