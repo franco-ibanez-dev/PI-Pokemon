@@ -1,12 +1,14 @@
 const { Router } = require('express');
 const router = Router()
+const {
+    getAllPokemons,
+    getPokemonById,
+    postPokemon } = require('../controllers/pokemons.js')
 
-router.get('/', (req, res, next) => {
-    try {
-        res.send("Hola soy la ruta de pokemons")
-    } catch (err) {
-        next(err)
-    }
-})
+
+router.get('/', getAllPokemons)
+router.get('/:id', getPokemonById)
+router.post('/', postPokemon)
+
 
 module.exports = router;
