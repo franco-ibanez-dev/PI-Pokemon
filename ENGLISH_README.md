@@ -151,7 +151,7 @@ The database model must have the followings entities (Those properties mark with
 
 The relationship between them must be many-to-many because one pokemon may belong to more than one type and a type may include many pokemons.
 
-__IMPORTANT__: Meditate about the best way to assign IDs to database originated pokemons. There is more than one way to do it. When we click one pokemon this may come from the external API or your own database. It can't be ambiguity on the details shown on the details route, they must be from the correct pokemon.
+__IMPORTANT__: Meditate about the best way to assign IDs to database originated pokemons. There is more than one way to do it. When we click one pokemon this may come from the external API or your own database. It can't be ambiguity on the data shown at the details route, they must belong to the correct pokemon.
 
 
 ## Backend
