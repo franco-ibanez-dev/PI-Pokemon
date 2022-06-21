@@ -123,7 +123,7 @@ __Pokemon's details route__: It must contain:
 - [ ] The fields shown on the main route for each pokemon (image, name and types).
 - [ ] Pokemon's number (id)
 - [ ] Statistics (Life, attack, defense, velocitiy)
-- [ ] Heigth and weigth.
+- [ ] Height and weight.
 
 __Creation route__: It must cotain:
 
@@ -142,8 +142,8 @@ The database model must have the followings entities (Those properties mark with
     - Attack
     - Defense 
     - Speed
-    - Heigth
-    - Weigth
+    - Height
+    - Weight
 
  - [ ] Type with the followings properties:
     - ID
@@ -162,7 +162,7 @@ __IMPORTANT__: It's not allowed to use the filters, sorts and paginations offere
     - Consider that it must work with an external api originated id and the database originated id.
 - [ ] __GET /pokemons?name="..."__:
     - Obtain the pokemon whose name match the name brought by the query parameter (It can be from pokeapi or created by us.)
-- [ ] __Get /types__:
+- [ ] __GET /types__:
     -  Obtain all pokemons types availables.
     -  At first you must obtain them from the external API then save them on your database to finally use them from there.
 
