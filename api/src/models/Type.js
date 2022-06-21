@@ -21,6 +21,8 @@ module.exports = (sequelize) => {
         weight: {
 
         }
+    }, {
+        timestamps: false,
     })
 
 
