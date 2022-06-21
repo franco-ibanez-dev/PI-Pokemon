@@ -151,6 +151,13 @@ The database model must have the followings entities (Those properties mark with
 
 The relationship between them must be many-to-many because one pokemon may belong to more than one type and a type may include many pokemons.
 
+__IMPORTANT__:
+
+
+## Backend
+
+You must develope a Node/Express server with the followings routes:
+
 __IMPORTANT__: It's not allowed to use the filters, sorts and paginations offered by the external API, all of the functionalities must be developed by you.
 
 - [ ] __GET /pokemons__:
