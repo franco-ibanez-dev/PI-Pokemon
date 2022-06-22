@@ -13,6 +13,9 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    life: {
+      type: DataTypes.STRING,
+    },
     sprite: {
       type: DataTypes.STRING,
       validate: {
@@ -30,6 +33,9 @@ module.exports = (sequelize) => {
     },
     weight: {
       type: DataTypes.INTEGER,
+    },
+    dbOriginated: {
+      type: DataTypes.BOOLEAN,
     }
   }, {
     timestamps: false,

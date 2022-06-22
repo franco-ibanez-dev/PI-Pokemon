@@ -23,9 +23,15 @@ async function preChargeTypes(req, res, next) {
     }
 }
 
+function getAllTypes(req, res, next) {
+    return Type.findAll()
+        .then(results => res.send(results))
+        .catch(error => next(error))
+}
 
 
 module.exports = {
     preChargeTypes,
+    getAllTypes,
 }
 
