@@ -36,37 +36,34 @@ async function getAPIpokemons() {
 async function getAPIpokemonById(id) {
     const result1 = await axios.get(`${POKEMON_URL}/${id}`)
     const result2 = result1.data
-    let arr1 = []
-    arr1.push({
-        id: result2.id,
-        name: result2.name,
-        life: result2.stats[0].base_stat,
-        sprite: result2.sprites.other.home.front_default,
-        defense: result2.stats[2].base_stat,
-        speed: result2.stats[5].base_stat,
-        height: result2.height,
-        weight: result2.weight,
-        type: result2.types.map(i => i.type.name),
-    })
-    return arr1;
+    let obj = {};
+    obj.id = result2.id;
+    obj.name = result2.name;
+    obj.life = result2.stats[0].base_stat;
+    obj.sprite = result2.sprites.other.home.front_default;
+    obj.defense = result2.stats[2].base_stat;
+    obj.speed = result2.stats[5].base_stat;
+    obj.height = result2.height;
+    obj.weight = result2.weight;
+    obj.type = result2.types.map(i => i.type.name);
+    return obj;
 }
 
 async function getAPIpokemonByName(name) {
     const result1 = await axios.get(`${POKEMON_URL}/${name}`);
     const result2 = result1.data;
-    let arr1 = [];
-    arr1.push({
-        id: result2.id,
-        name: result2.name,
-        life: result2.stats[0].base_stat,
-        sprite: result2.sprites.other.home.front_default,
-        defense: result2.stats[2].base_stat,
-        speed: result2.stats[5].base_stat,
-        height: result2.height,
-        weight: result2.weight,
-        type: result2.types.map(i => i.type.name),
-    })
-    return arr1;
+    let obj = {};
+    obj.id = result2.id;
+    obj.name = result2.name;
+    obj.life = result2.stats[0].base_stat;
+    obj.sprite = result2.sprites.other.home.front_default;
+    obj.defense = result2.stats[2].base_stat;
+    obj.speed = result2.stats[5].base_stat;
+    obj.height = result2.height;
+    obj.weight = result2.weight;
+    obj.type = result2.types.map(i => i.type.name);
+
+    return obj;
 }
 
 async function getPokemons(req, res, next) {
@@ -92,6 +89,7 @@ async function getPokemons(req, res, next) {
             if (!dbPokemon) {
                 const apiPokemon = getAPIpokemonByName(name)
                     .then(results => res.send(results))
+                    .catch(err => next(err))
             } else {
                 res.status(200).send(dbPokemon)
             }
@@ -118,7 +116,6 @@ async function getPokemonById(req, res, next) {
     }
 
 }
-
 
 async function postPokemon(req, res, next) {
     const { name, life, sprite, defense, speed, height, weight, types } = req.body;
