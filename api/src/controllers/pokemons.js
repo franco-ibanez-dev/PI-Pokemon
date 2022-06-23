@@ -51,7 +51,25 @@ async function getAPIpokemonById(id) {
     return arr1;
 }
 
-function getPokemons(req, res, next) {
+async function getAPIpokemonByName(name) {
+    const result1 = await axios.get(`${POKEMON_URL}/${name}`);
+    const result2 = result1.data;
+    let arr1 = [];
+    arr1.push({
+        id: result2.id,
+        name: result2.name,
+        life: result2.stats[0].base_stat,
+        sprite: result2.sprites.other.home.front_default,
+        defense: result2.stats[2].base_stat,
+        speed: result2.stats[5].base_stat,
+        height: result2.height,
+        weight: result2.weight,
+        type: result2.types.map(i => i.type.name),
+    })
+    return arr1;
+}
+
+async function getPokemons(req, res, next) {
     const name = req.query.name;
     if (!name) {
         const dbPokemons = Pokemon.findAll({
@@ -67,12 +85,19 @@ function getPokemons(req, res, next) {
             })
             .catch(error => next(error))
     } else {
-        return Pokemon.findOne({
-            where: { name },
-            include: Type
-        },
-        ).then(results => res.send(results))
-            .catch(error => next(error))
+        try {
+            const dbPokemon = await Pokemon.findOne(
+                { where: { name: { [Op.iLike]: `%${name}%` } } }
+            )
+            if (!dbPokemon) {
+                const apiPokemon = getAPIpokemonByName(name)
+                    .then(results => res.send(results))
+            } else {
+                res.status(200).send(dbPokemon)
+            }
+        } catch (error) {
+            next(error)
+        }
     }
 }
 
