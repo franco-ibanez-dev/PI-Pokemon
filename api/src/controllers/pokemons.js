@@ -55,7 +55,9 @@ function getPokemons(req, res, next) {
     const name = req.query.name;
     if (!name) {
         const dbPokemons = Pokemon.findAll({
-            include: Type,
+            include: {
+                model: Type
+            },
         })
         const apiPokemons = getAPIpokemons()
         Promise.all([dbPokemons, apiPokemons])
