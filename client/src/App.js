@@ -1,10 +1,13 @@
+import React from 'react';
 import './App.css';
+import PokemonCard from './components/PokemonCard/PokemonCard';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
-      <h1>Henry Pokemon</h1>
-    </div>
+    <BrowserRouter>
+      <div>HOLA GUACHO!!!</div>
+    </BrowserRouter>
   );
 }
 

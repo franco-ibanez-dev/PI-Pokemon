@@ -26,8 +26,7 @@ async function getAPIpokemons() {
             speed: element.stats[5].base_stat,
             height: element.height,
             weight: element.weight,
-            type: element.types.map(i => i.type.name),
-            dbOriginated: false,
+            type: element.types.map(i => i.type.name), 
         })
     })
     return arrFinal;
