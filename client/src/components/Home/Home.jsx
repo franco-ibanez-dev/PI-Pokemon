@@ -78,7 +78,7 @@ export default function Home() {
                     allPokemons?.map((array) => {
                         return array.map((element) => {
                             return (
-                                <PokemonCard sprite={element.sprite} name={element.name} />
+                                <PokemonCard sprite={element.sprite} name={element.name} type={element.type} />
                             )
                         })
                     })
