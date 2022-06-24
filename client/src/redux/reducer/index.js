@@ -11,6 +11,8 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 pokemons: action.payload
             }
+        default:
+            return state;
     }
 }
 

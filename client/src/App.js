@@ -1,12 +1,20 @@
 import React from 'react';
 import './App.css';
-import PokemonCard from './components/PokemonCard/PokemonCard';
+import LandingPage from './components/LandingPage/LandingPage.jsx';
+import Home from './components/Home/Home.jsx';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
+
 
 function App() {
   return (
     <BrowserRouter>
-      <div>HOLA GUACHO!!!</div>
+      <div className="App">
+        <Switch>
+          <Route exact path='/' component={LandingPage} />
+          <Route exact path = '/home' component={Home} />
+        </Switch>
+      </div>
     </BrowserRouter>
   );
 }
