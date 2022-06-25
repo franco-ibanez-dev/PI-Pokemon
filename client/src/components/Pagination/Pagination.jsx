@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 function Pagination({ pokemonsPerPage, allPokemons, pagination }) {
 
@@ -11,10 +11,10 @@ function Pagination({ pokemonsPerPage, allPokemons, pagination }) {
 
         <nav>
             <div className='pagination-container'>
-                {numberOfPages?.map(number => {
+                {numberOfPages?.map((number, index) => {
                     return (
-                            <a onClick={() => pagination(number)}>{number}</a>
-                    
+                        <a key={index} onClick={() => pagination(number)} href="#!">{number}</a>
+
                     )
                 })}
             </div>

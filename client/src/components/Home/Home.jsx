@@ -1,31 +1,32 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPokemons } from '../../redux/actions';
+import { getPokemons, filterPokemonsByType } from '../../redux/actions';
 import { Link } from 'react-router-dom';
 import PokemonCard from '../PokemonCard/PokemonCard.jsx';
 import Pagination from '../Pagination/Pagination.jsx';
 
+
+
 export default function Home() {
 
-    const makeItOneArray = (array) => {
-        let arr = [];
-        array.forEach((subArray) => subArray.forEach((obj) => arr.push(obj)))
-        return arr;
+
+    const dispatch = useDispatch();
+    const allPokemons = useSelector(state => state.pokemons);
+
+    useEffect(() => {
+        dispatch(getPokemons())
+    }, [dispatch])
+
+    const handleFilterType = (event) => {
+        dispatch(filterPokemonsByType(event.target.value))
     }
 
     const handleClick = (event) => {
         event.preventDefault();
         dispatch(getPokemons())
     }
-    const dispatch = useDispatch();
-    const response = useSelector(state => state.pokemons);
-    const allPokemons = makeItOneArray(response);
     // console.log(allPokemons);
-
-    useEffect(() => {
-        dispatch(getPokemons())
-    }, [dispatch])
 
     const [currentPage, setCurrentPage] = useState(1);
     const [pokemonsPerPage] = useState(12);
@@ -43,12 +44,24 @@ export default function Home() {
         <div>
             <Link to="/pokemon">Create pokemon</Link>
             <h1>POKÉMON SERIES IS SO AWESOME</h1>
-            <button onClick={event => { handleClick(event) }}>
+            <button onClick={(event) => { handleClick(event) }}>
                 Refresh pokemons
             </button>
             <div>
-                <select name="types" id="type-select">
-                    <option value="">Filter By TYPE</option>
+                <select name="alphabetical-order" id="alphabetical-order-select">
+                    <option value="">--Sort by Name--</option>
+                    <option value="ascending">Ascending</option>
+                    <option value="descending">Descending</option>
+                </select>
+
+                <select>
+                    <option value="">--Sort by Attack--</option>
+                    <option value="ascending">Ascending</option>
+                    <option value="descending">Descending</option>
+                </select>
+                <select name="types" id="type-select" onChange={(event) => handleFilterType(event)}>
+                    <option value="">--Filter by Type--</option>
+                    <option value="all">All of them</option>
                     <option value="normal">Normal</option>
                     <option value="fighting">Fighting</option>
                     <option value="flying">Flying</option>
@@ -72,23 +85,13 @@ export default function Home() {
                 </select>
 
                 <select name="origin" id="origin-select">
-                    <option value="">Filter By Condition</option>
+                    <option value="">--Filter by Condition--</option>
                     <option value="all">All of them</option>
                     <option value="preexisting">Preexisting</option>
                     <option value="created">Created</option>
                 </select>
 
-                <select name="alphabetical-order" id="alphabetical-order-select">
-                    <option value="">Order By Name </option>
-                    <option value="ascending">Ascending</option>
-                    <option value="descending">Descending</option>
-                </select>
 
-                <select>
-                    <option value="">Order By ATTACK</option>
-                    <option value="ascending">Ascending</option>
-                    <option value="descending">Descending</option>
-                </select>
                 <div>
                     <Pagination
                         pokemonsPerPage={pokemonsPerPage}
@@ -96,9 +99,9 @@ export default function Home() {
                         pagination={pagination}
                     />
                     <ul id='pokemonsArea'>
-                        {currentPokemons?.map((element) => {
+                        {currentPokemons?.map((element, index) => {
                             return (
-                                <li>
+                                <li key={index}>
                                     <PokemonCard
                                         sprite={element.sprite}
                                         name={element.name}

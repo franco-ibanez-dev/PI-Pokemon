@@ -56,7 +56,7 @@
   font-size: 15px;
 }
 
-.pagination-container   a {
+.pagination-container a {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -69,20 +69,28 @@
   cursor: pointer;
 }
 
-.pagination-container  a.active {
+.pagination-container a.active {
   background-color: #007bff;
   color: white;
   border: 1px solid #7cbddb;
 }
 
-.pagination-container  a.disabled {
+.pagination-container a.disabled {
   opacity: 0.2;
 }
 
-.pagination-container  a:hover:not(.active) {
+.pagination-container a:hover:not(.active) {
   background-color: rgb(238, 238, 238);
 }
 
-#pokemonsArea{
-    
+#pokemonsArea {
+  display: flex;
+  flex-flow: row wrap ;
+  justify-content: space-evenly;
+
+  list-style-type: none;
+  list-style-position: inside;
+  /* align-content: space-around; */
+  margin: 0;
+  padding: 0;
 }
