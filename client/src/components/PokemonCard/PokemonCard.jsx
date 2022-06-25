@@ -1,18 +1,19 @@
 import React from 'react';
 
-export default function PokemonCard({ sprite, name, type }) {
+export default function PokemonCard({ sprite, name, types }) {
 
     return (
         <div>
-            <img src={sprite} />
+            <img src={sprite} alt="" height="auto" width="200px"  />
             <h2>{name}</h2>
             <ul>{
-                type.map((type) => {
+                types.map((element) => {
                     return (
-                        <li>{type}</li>
+                        <li>{element.name}</li>
                     )
                 })
-            }</ul>
+            }
+            </ul>
 
         </div>
     )
