@@ -26,7 +26,7 @@ async function getAPIpokemons() {
             speed: element.stats[5].base_stat,
             height: element.height,
             weight: element.weight,
-            type: element.types.map(i => i.type.name), 
+            types: element.types.map(i => { return { name: i.type.name } }),
         })
     })
     return arrFinal;
@@ -44,7 +44,7 @@ async function getAPIpokemonById(id) {
     obj.speed = result2.stats[5].base_stat;
     obj.height = result2.height;
     obj.weight = result2.weight;
-    obj.type = result2.types.map(i => i.type.name);
+    obj.types = result2.types.map(i => { return { name: i.type.name } });
     return obj;
 }
 
@@ -60,7 +60,7 @@ async function getAPIpokemonByName(name) {
     obj.speed = result2.stats[5].base_stat;
     obj.height = result2.height;
     obj.weight = result2.weight;
-    obj.type = result2.types.map(i => i.type.name);
+    obj.types = result2.types.map(i => { return { name: i.type.name } });
 
     return obj;
 }
@@ -83,7 +83,12 @@ async function getPokemons(req, res, next) {
     } else {
         try {
             const dbPokemon = await Pokemon.findOne(
-                { where: { name: { [Op.iLike]: `%${name}%` } } }
+                {
+                    where: { name: { [Op.iLike]: `%${name}%` } },
+                    include: {
+                        model: Type
+                    }
+                }
             )
             if (!dbPokemon) {
                 const apiPokemon = getAPIpokemonByName(name)
