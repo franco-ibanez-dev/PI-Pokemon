@@ -2,14 +2,17 @@ import React from 'react';
 
 export default function PokemonCard({ sprite, name, types }) {
 
+    let key = 1;
+    
     return (
         <div>
-            <img src={sprite} alt="" height="auto" width="200px"  />
+            <img className="pokeSprite" src={sprite} alt="" height="auto" width="200px" />
             <h2>{name}</h2>
             <ul>{
                 types.map((element) => {
+                    key++;
                     return (
-                        <li>{element.name}</li>
+                        <li key={key}>{element.name}</li>
                     )
                 })
             }

@@ -1,23 +1,43 @@
+import React from 'react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPokemons } from '../../redux/actions';
 import { Link } from 'react-router-dom';
-import PokemonCard from '../PokemonCard/PokemonCard.jsx'
+import PokemonCard from '../PokemonCard/PokemonCard.jsx';
+import Pagination from '../Pagination/Pagination.jsx';
 
 export default function Home() {
 
-    const dispatch = useDispatch()
-    const allPokemons = useSelector(state => state.pokemons)
-    console.log(allPokemons)
+    const makeItOneArray = (array) => {
+        let arr = [];
+        array.forEach((subArray) => subArray.forEach((obj) => arr.push(obj)))
+        return arr;
+    }
+
+    const handleClick = (event) => {
+        event.preventDefault();
+        dispatch(getPokemons())
+    }
+    const dispatch = useDispatch();
+    const response = useSelector(state => state.pokemons);
+    const allPokemons = makeItOneArray(response);
+    // console.log(allPokemons);
+
     useEffect(() => {
         dispatch(getPokemons())
     }, [dispatch])
 
+    const [currentPage, setCurrentPage] = useState(1);
+    const [pokemonsPerPage] = useState(12);
 
-    function handleClick(event) {
-        event.preventDefault();
-        dispatch(getPokemons())
+    const indexOfLastPokemon = currentPage * pokemonsPerPage;
+    const indexOfFirstPokemon = indexOfLastPokemon - pokemonsPerPage;
+    const currentPokemons = allPokemons.slice(indexOfFirstPokemon, indexOfLastPokemon);
+
+    const pagination = (pageNumber) => {
+        setCurrentPage(pageNumber)
     }
+
 
     return (
         <div>
@@ -27,9 +47,8 @@ export default function Home() {
                 Refresh pokemons
             </button>
             <div>
-                {/* <label for="type-select">Choose a type:</label> */}
                 <select name="types" id="type-select">
-                    <option value="">--Please choose an option--</option>
+                    <option value="">Filter By TYPE</option>
                     <option value="normal">Normal</option>
                     <option value="fighting">Fighting</option>
                     <option value="flying">Flying</option>
@@ -52,40 +71,45 @@ export default function Home() {
                     <option value="shadow">Shadow</option>
                 </select>
 
-                {/* <label for="origin-select">Choose an origin:</label> */}
                 <select name="origin" id="origin-select">
-                    <option value="">--Please choose an origin--</option>
+                    <option value="">Filter By Condition</option>
                     <option value="all">All of them</option>
                     <option value="preexisting">Preexisting</option>
                     <option value="created">Created</option>
                 </select>
 
-                {/* <label for="alphabetical-order-select">Choose an alphabetical order:</label> */}
                 <select name="alphabetical-order" id="alphabetical-order-select">
-                    <option value="">--Please choose an alphabetical order--</option>
+                    <option value="">Order By Name </option>
                     <option value="ascending">Ascending</option>
                     <option value="descending">Descending</option>
                 </select>
 
-                {/* <label>Choose an attack order:</label> */}
                 <select>
-                    <option value="">--Please choose an attack order--</option>
+                    <option value="">Order By ATTACK</option>
                     <option value="ascending">Ascending</option>
                     <option value="descending">Descending</option>
                 </select>
-
-                {
-                    allPokemons?.map((array) => {
-                        return (array.map((element) => {
+                <div>
+                    <Pagination
+                        pokemonsPerPage={pokemonsPerPage}
+                        allPokemons={allPokemons.length}
+                        pagination={pagination}
+                    />
+                    <ul id='pokemonsArea'>
+                        {currentPokemons?.map((element) => {
                             return (
-                                <PokemonCard sprite={element.sprite} name={element.name} types={element.types} />
+                                <li>
+                                    <PokemonCard
+                                        sprite={element.sprite}
+                                        name={element.name}
+                                        types={element.types}
+                                    />
+                                </li>
                             )
-                        })
-                        )
-                    })
+                        })}
+                    </ul>
 
-                }
-
+                </div>
             </div>
         </div>
     )
