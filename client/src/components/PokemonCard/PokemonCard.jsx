@@ -3,10 +3,15 @@ import React from 'react';
 export default function PokemonCard({ sprite, name, types }) {
 
     let key = 1;
-    
+
     return (
         <div>
-            <img className="pokeSprite" src={sprite} alt="" height="200px" width="200px" />
+            <img
+                className="pokeSprite"
+                src={sprite ? sprite : "../../images/pokemon.png"}
+                alt={`A CGI representation of the ${name} pokemon`}
+                height="200px" width="200px"
+            />
             <h2>{name}</h2>
             <ul>{
                 types.map((element) => {
@@ -21,3 +26,4 @@ export default function PokemonCard({ sprite, name, types }) {
         </div>
     )
 }
+
