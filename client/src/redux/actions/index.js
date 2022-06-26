@@ -42,7 +42,8 @@ export function getTypes() {
 }
 
 export function filterPokemonsByType(payload) {
-    console.log(`El valor del select es ${payload}`)
+
+
     return {
         type: FYLTER_BY_TYPE,
         payload,
