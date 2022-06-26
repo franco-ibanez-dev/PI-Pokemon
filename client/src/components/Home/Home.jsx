@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom';
 import PokemonCard from '../PokemonCard/PokemonCard.jsx';
 import Pagination from '../Pagination/Pagination.jsx';
 import NotFound from '../NotFound/NotFound';
+import SearchBar from '../SearchBar/SearchBar';
 
 
 export default function Home() {
@@ -76,6 +77,7 @@ export default function Home() {
         <div id="generalContainer">
             <Link to="/creation">Create pokemon</Link>
             <h1>POKÉMON SERIES IS SO AWESOME</h1>
+            <SearchBar />
             <button onClick={(event) => handleClick(event)}>
                 Refresh pokemons
             </button>
