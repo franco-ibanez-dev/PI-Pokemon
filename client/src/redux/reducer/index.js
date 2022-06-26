@@ -1,5 +1,6 @@
 import {
-    FYLTER_BY_ATTACK,
+    ORDER_BY_NAME,
+    ORDER_BY_ATTACK,
     FYLTER_BY_ORIGIN,
     FYLTER_BY_TYPE,
     GET_POKEMONS,
@@ -57,17 +58,18 @@ function rootReducer(state = initialState, action) {
                 pokemons: originFiltered
             }
 
-        case FYLTER_BY_ATTACK:
+        case ORDER_BY_ATTACK:
             const allPokemons3 = state.allPokemons
-            const attackFiltered;
+            const attackFiltered = action.payload === "asc" ? allPokemons3.sort((a, b) => a.attack - b.attack) : state.pokemons.sort((a, b) => b.attack - a.attack);
+
             return {
                 ...state,
                 pokemons: attackFiltered
             }
 
-        case FYLTER_BY_NAME:
+        case ORDER_BY_NAME:
             const allPokemons4 = state.allPokemons
-            const nameFiltered;
+            const nameFiltered = action.payload === "asc" ? allPokemons4.sort((a, b) => a.name > b.name ? 1 : a.name < b.name ? -1 : 0) : state.pokemons.sort((a, b) => a.name < b.name ? 1 : a.name > b.name ? -1 : 0)
 
             return {
                 ...state,

@@ -6,7 +6,8 @@ import {
     getTypes,
     filterPokemonsByType,
     filterPokemonsByOrigin,
-    filterPokemonsByAttack,
+    orderPokemonsByAttack,
+    orderPokemonsByName
 } from '../../redux/actions';
 import { Link } from 'react-router-dom';
 import PokemonCard from '../PokemonCard/PokemonCard.jsx';
@@ -37,19 +38,27 @@ export default function Home() {
         dispatch(filterPokemonsByOrigin(event.target.value))
     }
 
-    const handleAttackFilter = (event) => {
-        dispatch(filterPokemonsByAttack(event.target.value))
+    const handleAttackSort = (event) => {
+        event.preventDefault();
+        dispatch(orderPokemonsByAttack(event.target.value));
+        setCurrentPage(1);
+        setSort(`${event.target.value} sorted`);
     }
 
-    const handleNameFilter = (event) => {
-        dispatch(event.target.value)
+    const handleNameSort = (event) => {
+        event.preventDefault();
+        dispatch(orderPokemonsByName(event.target.value));
+        setCurrentPage(1);
+        setSort(`${event.target.value} sorted`);
     }
 
     const handleClick = (event) => {
         event.preventDefault();
-        dispatch(getPokemons())
+        dispatch(getPokemons());
     }
     // console.log(allPokemons);
+
+    const [sort, setSort] = useState('')
 
     const [currentPage, setCurrentPage] = useState(1);
     const [pokemonsPerPage] = useState(12);
@@ -71,56 +80,57 @@ export default function Home() {
                 Refresh pokemons
             </button>
             <div>
-                <select
-                    name="alphabetical-order"
-                    id="alphabetical-order-select"
-                    onClick={(event) => handleNameFilter(event)}
-                >
-                    <option value="">--Sort by Name--</option>
-                    <option value="asc">Ascending</option>
-                    <option value="desc">Descending</option>
-                </select>
+                <div id='filters-container'>
+                    <select
+                        name="alphabetical-order"
+                        id="alphabetical-order-select"
+                        onClick={(event) => handleNameSort(event)}
+                    >
+                        <option value="">--Sort by Name--</option>
+                        <option value="asc">Ascending</option>
+                        <option value="desc">Descending</option>
+                    </select>
 
-                <select
-                    name="attack-order"
-                    id="attack-order-select"
-                    onClick={(event) => handleAttackFilter(event)}
-                >
-                    <option value="">--Sort by Attack--</option>
-                    <option value="asc">Ascending</option>
-                    <option value="desc">Descending</option>
-                </select>
-                <select
-                    name="types"
-                    id="type-select"
-                    onChange={(event) => handleTypeFilter(event)}
-                >
-                    <option value="">--Filter by Type--</option>
-                    <option value="all">All of them</option>
-                    {
-                        allTypes.map((element) => {
-                            return (
-                                <option
-                                    key={element.id}
-                                    value={element.name}
-                                >
-                                    {element.name.charAt(0).toUpperCase() + element.name.slice(1, element.name.length)}</option>
-                            )
-                        })
-                    }
-                </select>
+                    <select
+                        name="attack-order"
+                        id="attack-order-select"
+                        onClick={(event) => handleAttackSort(event)}
+                    >
+                        <option value="">--Sort by Attack--</option>
+                        <option value="asc">Ascending</option>
+                        <option value="desc">Descending</option>
+                    </select>
+                    <select
+                        name="types"
+                        id="type-select"
+                        onChange={(event) => handleTypeFilter(event)}
+                    >
+                        <option value="">--Filter by Type--</option>
+                        <option value="all">All of them</option>
+                        {
+                            allTypes.map((element) => {
+                                return (
+                                    <option
+                                        key={element.id}
+                                        value={element.name}
+                                    >
+                                        {element.name.charAt(0).toUpperCase() + element.name.slice(1, element.name.length)}</option>
+                                )
+                            })
+                        }
+                    </select>
 
-                <select
-                    name="origin"
-                    id="origin-select"
-                    onChange={(event) => handleOriginFilter(event)}
-                >
-                    <option value="">--Filter by Condition--</option>
-                    <option value="all">All of them</option>
-                    <option value="externalAPI">Preexisting</option>
-                    <option value="ownDB">Created</option>
-                </select>
-
+                    <select
+                        name="origin"
+                        id="origin-select"
+                        onChange={(event) => handleOriginFilter(event)}
+                    >
+                        <option value="">--Filter by Condition--</option>
+                        <option value="all">All of them</option>
+                        <option value="externalAPI">Preexisting</option>
+                        <option value="ownDB">Created</option>
+                    </select>
+                </div>
 
                 <div>
                     <Pagination

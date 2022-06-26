@@ -99,6 +99,12 @@
   border: 1px solid black;
 }
 
+#filters-container{
+  display: flex;
+  justify-content: space-evenly;
+  padding: 10px;
+}
+
 /* #generalContainer {
   border:0px;
 } */
