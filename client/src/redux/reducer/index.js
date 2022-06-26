@@ -2,6 +2,7 @@ import { FYLTER_BY_TYPE, GET_POKEMONS, GET_TYPES } from "../../utils/constants/c
 
 const initialState = {
     pokemons: [],
+    allPokemons: [],
     types: []
 }
 
@@ -13,7 +14,8 @@ function rootReducer(state = initialState, action) {
 
             return {
                 ...state,
-                pokemons: action.payload
+                pokemons: action.payload,
+                allPokemons: action.payload
             }
 
         case GET_TYPES:
@@ -23,8 +25,8 @@ function rootReducer(state = initialState, action) {
             }
 
         case FYLTER_BY_TYPE:
-            const allPokemons = state.pokemons
-            const statusFiltered = allPokemons.filter((pokemon) => {
+            const allPokemons = state.allPokemons
+            const statusFiltered = action.payload === 'all' ? allPokemons : allPokemons.filter((pokemon) => {
                 let iterator = pokemon.types.values()
                 for (let obj of iterator) {
                     if (obj.name === action.payload) return true;
