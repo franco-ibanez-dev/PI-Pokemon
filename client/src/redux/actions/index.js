@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { POKEMON_URL, GET_POKEMONS, FYLTER_BY_TYPE, TYPES_URL, GET_TYPES } from '../../utils/constants/constants'
+import { POKEMON_URL, GET_POKEMONS, FYLTER_BY_TYPE, TYPES_URL, GET_TYPES, FYLTER_BY_ORIGIN } from '../../utils/constants/constants'
 
 
 
@@ -43,10 +43,16 @@ export function getTypes() {
 
 export function filterPokemonsByType(payload) {
 
-
     return {
         type: FYLTER_BY_TYPE,
         payload,
     }
 
+}
+
+export function filterPokemonsByOrigin(payload) {
+    return {
+        type: FYLTER_BY_ORIGIN,
+        payload,
+    }
 }

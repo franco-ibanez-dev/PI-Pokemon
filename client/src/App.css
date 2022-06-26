@@ -85,7 +85,7 @@
 
 #pokemonsArea {
   display: flex;
-  flex-flow: row wrap ;
+  flex-flow: row wrap;
   justify-content: space-evenly;
 
   list-style-type: none;
@@ -96,5 +96,9 @@
 }
 
 #NotFound {
-    border: 1px solid black;
+  border: 1px solid black;
 }
+
+/* #generalContainer {
+  border:0px;
+} */

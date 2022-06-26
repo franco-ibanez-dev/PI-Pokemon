@@ -1,4 +1,5 @@
-import { FYLTER_BY_TYPE, GET_POKEMONS, GET_TYPES } from "../../utils/constants/constants";
+import { FYLTER_BY_ORIGIN, FYLTER_BY_TYPE, GET_POKEMONS, GET_TYPES } from "../../utils/constants/constants";
+import { filterPokemonsByOrigin } from "../actions";
 
 const initialState = {
     pokemons: [],
@@ -26,18 +27,31 @@ function rootReducer(state = initialState, action) {
 
         case FYLTER_BY_TYPE:
             const allPokemons = state.allPokemons
-            const statusFiltered = action.payload === 'all' ? allPokemons : allPokemons.filter((pokemon) => {
+            const typeFiltered = action.payload === 'all' ? allPokemons : allPokemons.filter((pokemon) => {
                 let iterator = pokemon.types.values()
                 for (let obj of iterator) {
                     if (obj.name === action.payload) return true;
                 }
                 return false;
             })
-            // console.log(statusFiltered);
+            // console.log(typeFiltered);
             return {
                 ...state,
-                pokemons: statusFiltered
+                pokemons: typeFiltered
             }
+
+        case FYLTER_BY_ORIGIN:
+            const allPokemons2 = state.allPokemons
+            const originFiltered = action.payload === 'all' ? allPokemons2 : allPokemons2.filter((pokemon) => {
+               return  action.payload === 'ownDB' && isNaN(pokemon.id) ? true :
+                    action.payload === 'externalAPI' && !isNaN(pokemon.id) ? true :
+                        false;
+            })
+            return {
+                ...state,
+                pokemons: originFiltered
+            }
+
         default:
             return state;
     }

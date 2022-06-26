@@ -1,7 +1,12 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPokemons, filterPokemonsByType, getTypes } from '../../redux/actions';
+import {
+    getPokemons,
+    getTypes,
+    filterPokemonsByType,
+    filterPokemonsByOrigin,
+} from '../../redux/actions';
 import { Link } from 'react-router-dom';
 import PokemonCard from '../PokemonCard/PokemonCard.jsx';
 import Pagination from '../Pagination/Pagination.jsx';
@@ -15,8 +20,8 @@ export default function Home() {
     const allPokemons = useSelector(state => state.pokemons);
     const allTypes = useSelector(state => state.types);
 
-    console.log("Esto es allPokemons en Home cuando no hay un tipo:");
-    console.log(allPokemons);
+    // console.log("Esto es allPokemons en Home cuando no hay un tipo:");
+    // console.log(allPokemons);
 
     useEffect(() => {
         dispatch(getPokemons())
@@ -25,6 +30,10 @@ export default function Home() {
 
     const handleFilterType = (event) => {
         dispatch(filterPokemonsByType(event.target.value))
+    }
+
+    const handleFilterOrigin = (event) => {
+        dispatch(filterPokemonsByOrigin(event.target.value))
     }
 
     const handleClick = (event) => {
@@ -46,7 +55,7 @@ export default function Home() {
 
 
     return (
-        <div>
+        <div id="generalContainer">
             <Link to="/creation">Create pokemon</Link>
             <h1>POKÉMON SERIES IS SO AWESOME</h1>
             <button onClick={(event) => handleClick(event)}>
@@ -76,11 +85,11 @@ export default function Home() {
                     }
                 </select>
 
-                <select name="origin" id="origin-select">
+                <select name="origin" id="origin-select" onChange={(event) => handleFilterOrigin(event)}>
                     <option value="">--Filter by Condition--</option>
                     <option value="all">All of them</option>
-                    <option value="preexisting">Preexisting</option>
-                    <option value="created">Created</option>
+                    <option value="externalAPI">Preexisting</option>
+                    <option value="ownDB">Created</option>
                 </select>
 
 

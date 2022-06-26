@@ -6,7 +6,7 @@ export default function PokemonCard({ sprite, name, types }) {
     
     return (
         <div>
-            <img className="pokeSprite" src={sprite} alt="" height="auto" width="200px" />
+            <img className="pokeSprite" src={sprite} alt="" height="200px" width="200px" />
             <h2>{name}</h2>
             <ul>{
                 types.map((element) => {
