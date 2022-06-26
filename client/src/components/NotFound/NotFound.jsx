@@ -6,7 +6,7 @@ export default function NotFound() {
         <div id="NotFound">
             <p>There is no pokemon that matches.</p>
             <p>Do you want to create one?</p>
-            <Link to="/creation">
+            <Link to="/pokemon">
                 <button>Go to creation form</button>
             </Link>
         </div>

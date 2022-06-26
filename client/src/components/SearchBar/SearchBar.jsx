@@ -10,13 +10,12 @@ export default function SearchBar() {
     const handleInputChange = (event) => {
         event.preventDefault()
         setName(event.target.value)
-        // console.log("Este aquí abajo es el estado local \"name\" del componente SearchBar.jsx");
-        console.log(name);
     }
 
     const handleSubmit = (event) => {
         event.preventDefault()
         dispatch(getPokemonByName(name))
+        setName("")
     }
 
     return (
@@ -24,6 +23,7 @@ export default function SearchBar() {
             <input
                 type="text"
                 placeholder='Search...'
+                value={name}
                 onChange={(event) => handleInputChange(event)}
             />
             <button type="submit" onClick={(event) => handleSubmit(event)}>Search</button>

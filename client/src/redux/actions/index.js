@@ -12,6 +12,17 @@ import {
 } from '../../utils/constants/constants'
 
 
+export function postPokemon(payload) {
+    return async function (dispatch) {
+        try {
+            const response = await axios.post(POKEMON_URL, payload)
+            console.log(response);
+            return response;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
 
 export function getPokemons() {
     const makeItOneArray = (array) => {

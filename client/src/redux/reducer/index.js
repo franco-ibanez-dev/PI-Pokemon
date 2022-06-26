@@ -5,13 +5,14 @@ import {
     FYLTER_BY_TYPE,
     GET_POKEMONS,
     GET_TYPES,
-    GET_POKEMON_BY_NAME
+    GET_POKEMON_BY_NAME,
+    POST_POKEMON
 } from "../../utils/constants/constants";
 
 const initialState = {
     pokemons: [],
     allPokemons: [],
-    types: []
+    types: [],
 }
 
 
@@ -33,10 +34,16 @@ function rootReducer(state = initialState, action) {
             }
         }
 
+        case POST_POKEMON: {
+            return {
+                ...state
+            }
+        }
+
         case GET_TYPES:
             return {
                 ...state,
-                types: action.payload
+                types: action.payload,
             }
 
         case FYLTER_BY_TYPE:
