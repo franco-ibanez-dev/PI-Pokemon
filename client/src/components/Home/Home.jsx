@@ -5,7 +5,7 @@ import { getPokemons, filterPokemonsByType, getTypes } from '../../redux/actions
 import { Link } from 'react-router-dom';
 import PokemonCard from '../PokemonCard/PokemonCard.jsx';
 import Pagination from '../Pagination/Pagination.jsx';
-
+import NotFound from '../NotFound/NotFound';
 
 
 export default function Home() {
@@ -14,6 +14,9 @@ export default function Home() {
     const dispatch = useDispatch();
     const allPokemons = useSelector(state => state.pokemons);
     const allTypes = useSelector(state => state.types);
+
+    console.log("Esto es allPokemons en Home cuando no hay un tipo:");
+    console.log(allPokemons);
 
     useEffect(() => {
         dispatch(getPokemons())
@@ -44,7 +47,7 @@ export default function Home() {
 
     return (
         <div>
-            <Link to="/pokemon">Create pokemon</Link>
+            <Link to="/creation">Create pokemon</Link>
             <h1>POKÉMON SERIES IS SO AWESOME</h1>
             <button onClick={(event) => handleClick(event)}>
                 Refresh pokemons
@@ -88,17 +91,25 @@ export default function Home() {
                         pagination={pagination}
                     />
                     <ul id='pokemonsArea'>
-                        {currentPokemons?.map((element, index) => {
-                            return (
-                                <li key={index}>
-                                    <PokemonCard
-                                        sprite={element.sprite}
-                                        name={element.name}
-                                        types={element.types}
-                                    />
-                                </li>
+                        {currentPokemons.length > 0 &&
+                            currentPokemons?.map((element, index) => {
+                                return (
+                                    <li key={index}>
+                                        <PokemonCard
+                                            sprite={element.sprite}
+                                            name={element.name}
+                                            types={element.types}
+                                        />
+                                    </li>
+                                )
+                            }
                             )
-                        })}
+                        }
+                        {
+                            currentPokemons.length === 0 &&
+                            <NotFound />
+                        }
+
                     </ul>
 
                 </div>
