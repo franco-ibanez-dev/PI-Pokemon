@@ -70,7 +70,7 @@ async function getAPIpokemonByName(name) {
 }
 
 async function getPokemons(req, res, next) {
-    const name = req.query.name;
+    const name = req.query.name
     if (!name) {
         const dbPokemons = Pokemon.findAll({
             include: {
@@ -86,17 +86,18 @@ async function getPokemons(req, res, next) {
             .catch(error => next(error))
     } else {
         try {
+            const loweredName = name.toLowerCase()
             let pokemonArray = [];
             const dbPokemon = await Pokemon.findOne(
                 {
-                    where: { name: { [Op.iLike]: `%${name}%` } },
+                    where: { name: { [Op.iLike]: `%${loweredName}%` } },
                     include: {
                         model: Type
                     }
                 }
             )
             if (!dbPokemon) {
-                const apiPokemon = getAPIpokemonByName(name)
+                const apiPokemon = getAPIpokemonByName(loweredName)
                     .then(results => res.send(results))
                     .catch(err => next(err))
             } else {
