@@ -76,8 +76,11 @@ export default function Home() {
     return (
         <div id="generalContainer">
             <Link to="/creation">Create pokemon</Link>
+
             <h1>POKÉMON SERIES IS SO AWESOME</h1>
+
             <SearchBar />
+
             <button onClick={(event) => handleClick(event)}>
                 Refresh pokemons
             </button>

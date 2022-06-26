@@ -31,7 +31,7 @@ export function getPokemons() {
             })
 
         } catch (error) {
-            console.log(error);
+            console.log(error.response.data);
 
         }
     }
@@ -46,7 +46,7 @@ export function getTypes() {
                 payload: json.data
             })
         } catch (error) {
-            console.log(error);
+            console.log(error.response.data);
         }
     }
 }
@@ -79,7 +79,7 @@ export function orderPokemonsByAttack(payload) {
     }
 }
 
-export function getNamePokemon(payload) {
+export function getPokemonByName(payload) {
     return async function (dispatch) {
         try {
             const json = await axios.get(GET_POKEMON_BY_NAME + payload)
@@ -89,7 +89,7 @@ export function getNamePokemon(payload) {
             })
 
         } catch (error) {
-            console.log(error);
+            console.log(error.response.data);
         }
     }
 }
