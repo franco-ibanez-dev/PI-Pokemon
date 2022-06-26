@@ -21,6 +21,7 @@ async function getAPIpokemons() {
             id: element.id,
             name: element.name,
             life: element.stats[0].base_stat,
+            attack: element.stats[1].base_stat,
             sprite: element.sprites.other.home.front_default,
             defense: element.stats[2].base_stat,
             speed: element.stats[5].base_stat,
@@ -39,6 +40,7 @@ async function getAPIpokemonById(id) {
     obj.id = result2.id;
     obj.name = result2.name;
     obj.life = result2.stats[0].base_stat;
+    obj.attack = result2.stats[1].base_stat;
     obj.sprite = result2.sprites.other.home.front_default;
     obj.defense = result2.stats[2].base_stat;
     obj.speed = result2.stats[5].base_stat;
@@ -55,6 +57,7 @@ async function getAPIpokemonByName(name) {
     obj.id = result2.id;
     obj.name = result2.name;
     obj.life = result2.stats[0].base_stat;
+    obj.attack = result2.stats[1].base_stat;
     obj.sprite = result2.sprites.other.home.front_default;
     obj.defense = result2.stats[2].base_stat;
     obj.speed = result2.stats[5].base_stat;
@@ -122,12 +125,12 @@ async function getPokemonById(req, res, next) {
 }
 
 async function postPokemon(req, res, next) {
-    const { name, life, sprite, defense, speed, height, weight, types } = req.body;
+    const { name, life, attack, sprite, defense, speed, height, weight, types } = req.body;
     if (name) {
         try {
             const [pokemonCreated, created] = await Pokemon.findOrCreate({
                 where: { name },
-                defaults: { id: uuidv4(), life, sprite, defense, speed, height, weight }
+                defaults: { id: uuidv4(), life, attack, sprite, defense, speed, height, weight }
             })
             let dbTypesArray = [];
             if (types) {

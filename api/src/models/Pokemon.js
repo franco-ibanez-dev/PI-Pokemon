@@ -22,6 +22,9 @@ module.exports = (sequelize) => {
         isURL: true,
       }
     },
+    attack: {
+      type: DataTypes.INTEGER
+    },
     defense: {
       type: DataTypes.INTEGER
     },
