@@ -69,7 +69,15 @@ function rootReducer(state = initialState, action) {
 
         case ORDER_BY_NAME:
             const allPokemons4 = state.allPokemons
-            const nameFiltered = action.payload === "asc" ? allPokemons4.sort((a, b) => a.name > b.name ? 1 : a.name < b.name ? -1 : 0) : state.pokemons.sort((a, b) => a.name < b.name ? 1 : a.name > b.name ? -1 : 0)
+            const nameFiltered = action.payload === "asc" ?
+                allPokemons4.sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase() ?
+                    1 :
+                    a.name.toLowerCase() < b.name.toLowerCase() ?
+                        -1 :
+                        0) : state.pokemons.sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase() ?
+                            1 :
+                            a.name.toLowerCase() > b.name.toLowerCase() ?
+                                -1 : 0)
 
             return {
                 ...state,
