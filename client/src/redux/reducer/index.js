@@ -4,7 +4,8 @@ import {
     FYLTER_BY_ORIGIN,
     FYLTER_BY_TYPE,
     GET_POKEMONS,
-    GET_TYPES
+    GET_TYPES,
+    GET_POKEMON_BY_NAME
 } from "../../utils/constants/constants";
 
 const initialState = {
@@ -24,6 +25,13 @@ function rootReducer(state = initialState, action) {
                 pokemons: action.payload,
                 allPokemons: action.payload
             }
+
+        case GET_POKEMON_BY_NAME: {
+            return {
+                ...state,
+                pokemons: action.payload
+            }
+        }
 
         case GET_TYPES:
             return {

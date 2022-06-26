@@ -54,6 +54,7 @@ async function getAPIpokemonByName(name) {
     const result1 = await axios.get(`${POKEMON_URL}/${name}`);
     const result2 = result1.data;
     let obj = {};
+    let array = [];
     obj.id = result2.id;
     obj.name = result2.name;
     obj.life = result2.stats[0].base_stat;
@@ -64,8 +65,8 @@ async function getAPIpokemonByName(name) {
     obj.height = result2.height;
     obj.weight = result2.weight;
     obj.types = result2.types.map(i => { return { name: i.type.name } });
-
-    return obj;
+    array.push(obj);
+    return array;
 }
 
 async function getPokemons(req, res, next) {
@@ -85,6 +86,7 @@ async function getPokemons(req, res, next) {
             .catch(error => next(error))
     } else {
         try {
+            let pokemonArray = [];
             const dbPokemon = await Pokemon.findOne(
                 {
                     where: { name: { [Op.iLike]: `%${name}%` } },
@@ -98,7 +100,8 @@ async function getPokemons(req, res, next) {
                     .then(results => res.send(results))
                     .catch(err => next(err))
             } else {
-                res.status(200).send(dbPokemon)
+                pokemonArray.push(dbPokemon)
+                res.status(200).send(pokemonArray)
             }
         } catch (error) {
             next(error)

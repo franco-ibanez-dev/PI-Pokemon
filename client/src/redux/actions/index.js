@@ -7,7 +7,8 @@ import {
     FYLTER_BY_TYPE,
     FYLTER_BY_ORIGIN,
     ORDER_BY_NAME,
-    ORDER_BY_ATTACK
+    ORDER_BY_ATTACK,
+    GET_POKEMON_BY_NAME
 } from '../../utils/constants/constants'
 
 
@@ -75,5 +76,20 @@ export function orderPokemonsByAttack(payload) {
     return {
         type: ORDER_BY_ATTACK,
         payload,
+    }
+}
+
+export function getNamePokemon(payload) {
+    return async function (dispatch) {
+        try {
+            const json = await axios.get(GET_POKEMON_BY_NAME + payload)
+            return dispatch({
+                type: GET_POKEMON_BY_NAME,
+                payload: json.data
+            })
+
+        } catch (error) {
+            console.log(error);
+        }
     }
 }
