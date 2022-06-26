@@ -60,7 +60,7 @@ function rootReducer(state = initialState, action) {
 
         case ORDER_BY_ATTACK:
             const allPokemons3 = state.allPokemons
-            const attackFiltered = action.payload === "asc" ? allPokemons3.sort((a, b) => a.attack - b.attack) : state.pokemons.sort((a, b) => b.attack - a.attack);
+            const attackFiltered = action.payload === 'default' ? allPokemons3 : action.payload === "asc" ? allPokemons3.sort((a, b) => a.attack - b.attack) : state.pokemons.sort((a, b) => b.attack - a.attack);
 
             return {
                 ...state,
