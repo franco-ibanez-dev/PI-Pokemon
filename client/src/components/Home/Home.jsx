@@ -87,7 +87,6 @@ export default function Home() {
                         onClick={(event) => handleNameSort(event)}
                     >
                         <option value="">--Sort by Name--</option>
-                        <option value="default">Default</option>
                         <option value="asc">Ascending</option>
                         <option value="desc">Descending</option>
                     </select>

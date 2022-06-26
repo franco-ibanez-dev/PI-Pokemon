@@ -60,7 +60,7 @@ function rootReducer(state = initialState, action) {
 
         case ORDER_BY_ATTACK:
             const allPokemons3 = state.allPokemons
-            const attackFiltered = action.payload === 'default' ? allPokemons3 : action.payload === "asc" ? allPokemons3.sort((a, b) => a.attack - b.attack) : state.pokemons.sort((a, b) => b.attack - a.attack);
+            const attackFiltered = action.payload === "asc" ? allPokemons3.sort((a, b) => a.attack - b.attack) : action.payload === "desc" ? state.pokemons.sort((a, b) => b.attack - a.attack) : allPokemons3;
 
             return {
                 ...state,
@@ -70,7 +70,7 @@ function rootReducer(state = initialState, action) {
         case ORDER_BY_NAME:
             const allPokemons4 = state.allPokemons
             const nameFiltered = action.payload === "asc" ?
-                allPokemons4.sort((a, b) => a.name > b.name ? 1 : a.name < b.name ? -1 : 0) : state.pokemons.sort((a, b) => a.name < b.name ? 1 : a.name > b.name ? -1 : 0)
+                allPokemons4.sort((a, b) => a.name > b.name ? 1 : a.name < b.name ? -1 : 0) : action.payload === "desc" ? state.pokemons.sort((a, b) => a.name < b.name ? 1 : a.name > b.name ? -1 : 0) : allPokemons4
 
             return {
                 ...state,
