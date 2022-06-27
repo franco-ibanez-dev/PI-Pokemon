@@ -21,7 +21,7 @@ export default function CreatePokemon() {
     const [speed, setSpeed] = useState(0)
     const [height, setHeight] = useState(0)
     const [weight, setWeight] = useState(0)
-    const [types, setTypes] = useState('')
+    // let typesJson = [];
 
     const [error, setError] = useState('')
     const [nameError, setNameError] = useState('')
@@ -32,6 +32,7 @@ export default function CreatePokemon() {
     const [heightError, setHeightError] = useState('')
     const [weightError, setWeightError] = useState('')
     const [speedError, setSpeedError] = useState('')
+    const [typesError, setTypesError] = useState('')
 
     function validateSpriteURL(value) {
         if (!/(https:)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/.test(value)) {
@@ -121,7 +122,10 @@ export default function CreatePokemon() {
                 break;
         }
     }
-
+    const [typesJson, setTypesJson] = useState([])
+    function validateTypes(value) {
+            setTypesJson(...typesJson.push(value))
+    }
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -262,20 +266,22 @@ export default function CreatePokemon() {
                 </div>
                 <div>
                     <label>Types:</label>
-                    {
-                        typesArray.map((type, index) => {
+                    <select
+                        name="types"
+                        id="form-types-select"
+                        onChange={(e) => validateTypes(e.target.value)}
+                    >
+                        {typesArray.map((element) => {
                             return (
-                                <label>
-                                    <input
-                                        type="checkbox"
-                                        name={type.name}
-                                        value={type.name}
-                                        onChange={(event) => setTypes(event.target.value)}
-                                        key={index}
-                                    />{type.name}</label>
+                                <option
+                                    key={element.id}
+                                    value={element.name}
+                                >
+                                    {element.name.charAt(0).toUpperCase() + element.name.slice(1, element.name.length)}</option>
                             )
-                        })
-                    }
+                        })}
+                    </select>
+                    {typesError && <label>{typesError}</label>}
                 </div>
                 <div>
                     <input type='submit' value='Submit' />
