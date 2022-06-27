@@ -8,7 +8,11 @@ import {
 } from "../../utils/constants/constants";
 
 
+
+
 export default function CreatePokemon() {
+
+
     const [name, setName] = useState('')
     const [life, setLife] = useState(0)
     const [attack, setAttack] = useState(0)
@@ -20,27 +24,79 @@ export default function CreatePokemon() {
     const [types, setTypes] = useState('')
 
     const [error, setError] = useState('')
+    const [nameError, setNameError] = useState('')
+    const [urlError, setUrlError] = useState('')
+    const [attackError, setAttackError] = useState('')
+    const [lifeError, setLifeError] = useState('')
+    const [defenseError, setDefenseError] = useState('')
+    const [heightError, setHeightError] = useState('')
+    const [weightError, setWeightError] = useState('')
+    const [speedError, setSpeedError] = useState('')
+
     function validateSpriteURL(value) {
-        if (!/(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/.test(value)) {
-            setError('https protocol and .png .jpg .gif extensions are required')
+        if (!/(https:)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/.test(value)) {
+            setUrlError('https protocol and .png .jpg .gif extensions are required')
         } else {
-            setError('')
+            setUrlError('')
         }
         setSprite(value)
     }
     function validateName(value) {
         if (!/^(?=.{5,10}$)[a-zA-Z]+(?:-[a-zA-Z]+)*$/.test(value)) {
-            setError('Only letters, optional middle hyphen, length(min: 3, max: 10)')
+            setNameError('Only letters, optional middle hyphen, length between 5 and 10 characters.');
         } else {
-            setError('')
+            setNameError('');
         }
         setName(value)
     }
     function validateStat(value, min, max, stat) {
+        let errorMessage = `Must be an integer within ${min} and ${max} inclusive`
         if (!/^\d+$/.test(value) || value < min || value > max) {
-            setError(`Must be an integer within ${min} and ${max} inclusive`)
+            switch (stat) {
+                case "life":
+                    setLifeError(errorMessage)
+                    break;
+                case "speed":
+                    setSpeedError(errorMessage)
+                    break;
+                case "attack":
+                    setAttackError(errorMessage)
+                    break;
+                case "height":
+                    setHeightError(errorMessage)
+                    break;
+                case "weight":
+                    setWeightError(errorMessage)
+                    break;
+                case "defense":
+                    setDefenseError(errorMessage)
+                    break;
+                default:
+                    break;
+            }
         } else {
-            setError('')
+            switch (stat) {
+                case "life":
+                    setLifeError("")
+                    break;
+                case "speed":
+                    setSpeedError("")
+                    break;
+                case "attack":
+                    setAttackError("")
+                    break;
+                case "height":
+                    setHeightError("")
+                    break;
+                case "weight":
+                    setWeightError("")
+                    break;
+                case "defense":
+                    setDefenseError("")
+                    break;
+                default:
+                    break;
+            }
         }
         switch (stat) {
             case "life":
@@ -101,28 +157,33 @@ export default function CreatePokemon() {
                 <div>
                     <label>Name:</label>
                     <input
+                        className={nameError && "danger"}
                         type="text"
                         name="name"
                         value={name}
                         placeholder="It's name..."
                         onChange={(event) => validateName(event.target.value)}
                     />
+                    {nameError && <label>{nameError}</label>}
                 </div>
                 <div>
                     <label>Life:</label>
                     <input
-                        type="range"
+                        className={lifeError && "danger"}
+                        type="number"
                         value={life}
                         name="life"
                         min="30"
                         max="145"
                         onChange={(event) => validateStat(event.target.value, minLife, maxLife, "life")}
                     />
+                    {lifeError && <label>{lifeError}</label>}
                 </div>
                 <div>
                     <label>Attack:</label>
                     <input
-                        type="range"
+                        className={attackError && "danger"}
+                        type="number"
                         value={attack}
                         name="attack"
                         min="20"
@@ -130,10 +191,12 @@ export default function CreatePokemon() {
                         onChange={(event) => validateStat(event.target.value, minAttack, maxAttack, "attack")}
 
                     />
+                    {attackError && <label>{attackError}</label>}
                 </div>
                 <div>
                     <label>Image:</label>
                     <input
+                        className={urlError && "danger"}
                         type="text"
                         value={sprite}
                         name="sprite"
@@ -141,11 +204,13 @@ export default function CreatePokemon() {
                         onChange={(event) => validateSpriteURL(event.target.value)}
 
                     />
+                    {urlError && <label>{urlError}</label>}
                 </div>
                 <div>
                     <label>Defense:</label>
                     <input
-                        type="range"
+                        className={defenseError && "danger"}
+                        type="number"
                         value={defense}
                         name="defense"
                         min="20"
@@ -153,42 +218,47 @@ export default function CreatePokemon() {
                         onChange={(event) => validateStat(event.target.value, minDefense, maxDefense, "defense")}
 
                     />
+                    {defenseError && <label>{defenseError}</label>}
                 </div>
                 <div>
                     <label >Speed:</label>
                     <input
-                        type="range"
+                        className={speedError && "danger"}
+                        type="number"
                         value={speed}
                         name="speed"
                         min="20"
                         max="110"
                         onChange={(event) => validateStat(event.target.value, minSpeed, maxSpeed, "speed")}
-
                     />
+                    {speedError && <label>{speedError}</label>}
                 </div>
                 <div>
                     <label>Height:</label>
                     <input
-                        type="range"
+                        className={heightError && "danger"}
+                        type="number"
                         value={height}
                         name="height"
                         min="3"
                         max="35"
                         onChange={(event) => validateStat(event.target.value, minHeight, maxHeight, "height")}
-
                     />
+                    {heightError && <label>{heightError}</label>}
                 </div>
                 <div>
                     <label>Weight:</label>
                     <input
-                        type="range"
+                        className={weightError && "danger"}
+                        type="number"
                         value={weight}
                         name="weight"
                         min="18"
                         max="1000"
+                        step="50"
                         onChange={(event) => validateStat(event.target.value, minWeight, maxWeight, "weight")}
-
                     />
+                    {weightError && <label>{weightError}</label>}
                 </div>
                 <div>
                     <label>Types:</label>

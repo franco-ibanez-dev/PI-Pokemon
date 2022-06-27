@@ -105,6 +105,6 @@
   padding: 10px;
 }
 
-/* #generalContainer {
-  border:0px;
-} */
+.danger{
+    border: red 5px solid;
+}
