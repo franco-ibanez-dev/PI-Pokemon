@@ -3,6 +3,10 @@ import React from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { postPokemon, getTypes } from "../../redux/actions";
+import {
+    minLife, maxLife, minAttack, maxAttack, minDefense, maxDefense, minHeight, maxHeight, minSpeed, maxSpeed, minWeight, maxWeight
+} from "../../utils/constants/constants";
+
 
 export default function CreatePokemon() {
     const [name, setName] = useState('')
@@ -25,13 +29,43 @@ export default function CreatePokemon() {
         setSprite(value)
     }
     function validateName(value) {
-        if (!/^(?=.{3,10}$)[a-zA-Z]+(?:-[a-zA-Z]+)*$/.test(value)) {
+        if (!/^(?=.{5,10}$)[a-zA-Z]+(?:-[a-zA-Z]+)*$/.test(value)) {
             setError('Only letters, optional middle hyphen, length(min: 3, max: 10)')
         } else {
             setError('')
         }
         setName(value)
     }
+    function validateStat(value, min, max, stat) {
+        if (!/^\d+$/.test(value) || value < min || value > max) {
+            setError(`Must be an integer within ${min} and ${max} inclusive`)
+        } else {
+            setError('')
+        }
+        switch (stat) {
+            case "life":
+                setLife(value)
+                break;
+            case "speed":
+                setSpeed(value)
+                break;
+            case "attack":
+                setAttack(value)
+                break;
+            case "height":
+                setHeight(value)
+                break;
+            case "weight":
+                setWeight(value)
+                break;
+            case "defense":
+                setDefense(value)
+                break;
+            default:
+                break;
+        }
+    }
+
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -80,7 +114,9 @@ export default function CreatePokemon() {
                         type="range"
                         value={life}
                         name="life"
-                        onChange={(event) => setLife(event.target.value)}
+                        min="30"
+                        max="145"
+                        onChange={(event) => validateStat(event.target.value, minLife, maxLife, "life")}
                     />
                 </div>
                 <div>
@@ -89,9 +125,9 @@ export default function CreatePokemon() {
                         type="range"
                         value={attack}
                         name="attack"
-                        min="0"
-                        max="255"
-                        onChange={(event) => setAttack(event.target.value)}
+                        min="20"
+                        max="105"
+                        onChange={(event) => validateStat(event.target.value, minAttack, maxAttack, "attack")}
 
                     />
                 </div>
@@ -112,7 +148,9 @@ export default function CreatePokemon() {
                         type="range"
                         value={defense}
                         name="defense"
-                        onChange={(event) => setDefense(event.target.value)}
+                        min="20"
+                        max="110"
+                        onChange={(event) => validateStat(event.target.value, minDefense, maxDefense, "defense")}
 
                     />
                 </div>
@@ -122,7 +160,9 @@ export default function CreatePokemon() {
                         type="range"
                         value={speed}
                         name="speed"
-                        onChange={(event) => setSpeed(event.target.value)}
+                        min="20"
+                        max="110"
+                        onChange={(event) => validateStat(event.target.value, minSpeed, maxSpeed, "speed")}
 
                     />
                 </div>
@@ -132,7 +172,9 @@ export default function CreatePokemon() {
                         type="range"
                         value={height}
                         name="height"
-                        onChange={(event) => setHeight(event.target.value)}
+                        min="3"
+                        max="35"
+                        onChange={(event) => validateStat(event.target.value, minHeight, maxHeight, "height")}
 
                     />
                 </div>
@@ -142,7 +184,9 @@ export default function CreatePokemon() {
                         type="range"
                         value={weight}
                         name="weight"
-                        onChange={(event) => setWeight(event.target.value)}
+                        min="18"
+                        max="1000"
+                        onChange={(event) => validateStat(event.target.value, minWeight, maxWeight, "weight")}
 
                     />
                 </div>
