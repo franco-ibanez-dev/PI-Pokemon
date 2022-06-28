@@ -22,7 +22,7 @@ export default function Home() {
     const dispatch = useDispatch();
     const allPokemons = useSelector(state => state.pokemons);
     const allTypes = useSelector(state => state.types);
-
+    allTypes.sort((a, b) => a.name < b.name ? -1 : a.name > b.name ? 1 : 0)
     // console.log("Esto es allPokemons en Home cuando no hay un tipo:");
     // console.log(allPokemons);
 

@@ -11,19 +11,35 @@ import {
 
 
 export default function CreatePokemon() {
+    const dispatch = useDispatch()
+    let typesArray = useSelector((state) => state.types)
+    typesArray.sort((a, b) => a.name < b.name ? -1 : a.name > b.name ? 1 : 0)
+    const history = useHistory()
+    const emptyForm = {
+        name: "",
+        life: 0,
+        attack: 0,
+        sprite: "",
+        defense: 0,
+        speed: 0,
+        height: 0,
+        weight: 0,
+        types: []
+    }
 
+    const [jsonData, setJsonData] = useState({
+        name: "",
+        life: 0,
+        attack: 0,
+        sprite: "",
+        defense: 0,
+        speed: 0,
+        height: 0,
+        weight: 0,
+        types: []
+    })
 
-    const [name, setName] = useState('')
-    const [life, setLife] = useState(0)
-    const [attack, setAttack] = useState(0)
-    const [sprite, setSprite] = useState('')
-    const [defense, setDefense] = useState(0)
-    const [speed, setSpeed] = useState(0)
-    const [height, setHeight] = useState(0)
-    const [weight, setWeight] = useState(0)
-    // let typesJson = [];
-
-    const [error, setError] = useState('')
+    //#region 
     const [nameError, setNameError] = useState('')
     const [urlError, setUrlError] = useState('')
     const [attackError, setAttackError] = useState('')
@@ -33,27 +49,39 @@ export default function CreatePokemon() {
     const [weightError, setWeightError] = useState('')
     const [speedError, setSpeedError] = useState('')
     const [typesError, setTypesError] = useState('')
-
-    function validateSpriteURL(value) {
+    //#endregion
+    function validateSpriteURL(e) {
+        const name = e.target.name;
+        const value = e.target.value;
         if (!/(https:)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/.test(value)) {
             setUrlError('https protocol and .png .jpg .gif extensions are required')
         } else {
             setUrlError('')
         }
-        setSprite(value)
+        setJsonData({
+            ...jsonData,
+            [name]: value
+        })
     }
-    function validateName(value) {
+    function validateName(e) {
+        const name = e.target.name;
+        const value = e.target.value;
         if (!/^(?=.{5,10}$)[a-zA-Z]+(?:-[a-zA-Z]+)*$/.test(value)) {
             setNameError('Only letters, optional middle hyphen, length between 5 and 10 characters.');
         } else {
             setNameError('');
         }
-        setName(value)
+        setJsonData({
+            ...jsonData,
+            [name]: value
+        })
     }
-    function validateStat(value, min, max, stat) {
+    function validateStat(e, min, max) {
+        const name = e.target.name;
+        const value = e.target.value;
         let errorMessage = `Must be an integer within ${min} and ${max} inclusive`
-        if (!/^\d+$/.test(value) || value < min || value > max) {
-            switch (stat) {
+        if (!/^([1-9][0-9]{0,2}|1000)$/.test(value) || value < min || value > max) {
+            switch (name) {
                 case "life":
                     setLifeError(errorMessage)
                     break;
@@ -76,7 +104,7 @@ export default function CreatePokemon() {
                     break;
             }
         } else {
-            switch (stat) {
+            switch (name) {
                 case "life":
                     setLifeError("")
                     break;
@@ -99,57 +127,59 @@ export default function CreatePokemon() {
                     break;
             }
         }
-        switch (stat) {
-            case "life":
-                setLife(value)
-                break;
-            case "speed":
-                setSpeed(value)
-                break;
-            case "attack":
-                setAttack(value)
-                break;
-            case "height":
-                setHeight(value)
-                break;
-            case "weight":
-                setWeight(value)
-                break;
-            case "defense":
-                setDefense(value)
-                break;
-            default:
-                break;
+        setJsonData({
+            ...jsonData,
+            [name]: value
+        })
+    }
+    function validateTypes(e) {
+        const value = e.target.value;
+        const errorMessage = "You can only choose 2 types."
+        if (jsonData.types.length === 2 && !jsonData.types.includes(value)) {
+            setTypesError(errorMessage)
+            const resetLabel = () => setTypesError("")
+            setTimeout(resetLabel, 4000)
+            return
+        }
+        if (jsonData.types.includes(value)) {
+            setJsonData({
+                ...jsonData,
+                types: jsonData.types.filter(elm => elm !== value)
+            })
+            return
+        }
+        setTypesError('')
+        setJsonData({
+            ...jsonData,
+            types: [...jsonData.types, value]
+        })
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(jsonData);
+        if (jsonData.name === '' || jsonData.name === "") {
+            alert('You must fill the form first.')
+        } else {
+            dispatch(postPokemon(jsonData))
+            setJsonData({
+                name: "",
+                life: 0,
+                attack: 0,
+                sprite: "",
+                defense: 0,
+                speed: 0,
+                height: 0,
+                weight: 0,
+                types: []
+            })
+            alert("Your pokemon was posted succesfully!")
+            history.push('/home')
         }
     }
-    const [typesJson, setTypesJson] = useState([])
-    function validateTypes(value) {
-            setTypesJson(...typesJson.push(value))
-    }
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-    }
-
-    const dispatch = useDispatch()
-    const typesArray = useSelector((state) => state.types)
-
-    // const [input, setInput] = useState({
-    //     name: "",
-    //     life: 0,
-    //     attack: 0,
-    //     sprite: "",
-    //     defense: 0,
-    //     speed: 0,
-    //     height: 0,
-    //     weight: 0,
-    //     types: []
-    // })
-
 
     useEffect(() => {
         dispatch(getTypes())
-
     }, [])
 
     return (
@@ -157,16 +187,18 @@ export default function CreatePokemon() {
 
             <Link to="/home"><button>Back home</button></Link>
             <h1>Create a Pokemon of your own!</h1>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={(e) => handleSubmit(e)}>
+
                 <div>
+
                     <label>Name:</label>
                     <input
                         className={nameError && "danger"}
                         type="text"
                         name="name"
-                        value={name}
-                        placeholder="It's name..."
-                        onChange={(event) => validateName(event.target.value)}
+                        value={jsonData.name}
+                        placeholder="Its name..."
+                        onChange={(e) => validateName(e)}
                     />
                     {nameError && <label>{nameError}</label>}
                 </div>
@@ -174,12 +206,12 @@ export default function CreatePokemon() {
                     <label>Life:</label>
                     <input
                         className={lifeError && "danger"}
-                        type="number"
-                        value={life}
+                        type="text"
+                        value={jsonData.life}
                         name="life"
-                        min="30"
-                        max="145"
-                        onChange={(event) => validateStat(event.target.value, minLife, maxLife, "life")}
+                        // min="30"
+                        // max="145"
+                        onChange={(e) => validateStat(e, minLife, maxLife)}
                     />
                     {lifeError && <label>{lifeError}</label>}
                 </div>
@@ -187,12 +219,12 @@ export default function CreatePokemon() {
                     <label>Attack:</label>
                     <input
                         className={attackError && "danger"}
-                        type="number"
-                        value={attack}
+                        type="text"
+                        value={jsonData.attack}
                         name="attack"
-                        min="20"
-                        max="105"
-                        onChange={(event) => validateStat(event.target.value, minAttack, maxAttack, "attack")}
+                        // min="20"
+                        // max="105"
+                        onChange={(e) => validateStat(e, minAttack, maxAttack)}
 
                     />
                     {attackError && <label>{attackError}</label>}
@@ -202,10 +234,10 @@ export default function CreatePokemon() {
                     <input
                         className={urlError && "danger"}
                         type="text"
-                        value={sprite}
+                        value={jsonData.sprite}
                         name="sprite"
                         placeholder="It's image... (URL)"
-                        onChange={(event) => validateSpriteURL(event.target.value)}
+                        onChange={(e) => validateSpriteURL(e)}
 
                     />
                     {urlError && <label>{urlError}</label>}
@@ -214,12 +246,12 @@ export default function CreatePokemon() {
                     <label>Defense:</label>
                     <input
                         className={defenseError && "danger"}
-                        type="number"
-                        value={defense}
+                        type="text"
+                        value={jsonData.defense}
                         name="defense"
-                        min="20"
-                        max="110"
-                        onChange={(event) => validateStat(event.target.value, minDefense, maxDefense, "defense")}
+                        // min="20"
+                        // max="110"
+                        onChange={(e) => validateStat(e, minDefense, maxDefense)}
 
                     />
                     {defenseError && <label>{defenseError}</label>}
@@ -228,12 +260,12 @@ export default function CreatePokemon() {
                     <label >Speed:</label>
                     <input
                         className={speedError && "danger"}
-                        type="number"
-                        value={speed}
+                        type="text"
+                        value={jsonData.speed}
                         name="speed"
-                        min="20"
-                        max="110"
-                        onChange={(event) => validateStat(event.target.value, minSpeed, maxSpeed, "speed")}
+                        // min="20"
+                        // max="110"
+                        onChange={(e) => validateStat(e, minSpeed, maxSpeed)}
                     />
                     {speedError && <label>{speedError}</label>}
                 </div>
@@ -241,12 +273,12 @@ export default function CreatePokemon() {
                     <label>Height:</label>
                     <input
                         className={heightError && "danger"}
-                        type="number"
-                        value={height}
+                        type="text"
+                        value={jsonData.height}
                         name="height"
-                        min="3"
-                        max="35"
-                        onChange={(event) => validateStat(event.target.value, minHeight, maxHeight, "height")}
+                        // min="3"
+                        // max="35"
+                        onChange={(e) => validateStat(e, minHeight, maxHeight)}
                     />
                     {heightError && <label>{heightError}</label>}
                 </div>
@@ -254,13 +286,13 @@ export default function CreatePokemon() {
                     <label>Weight:</label>
                     <input
                         className={weightError && "danger"}
-                        type="number"
-                        value={weight}
+                        type="text"
+                        value={jsonData.weight}
                         name="weight"
-                        min="18"
-                        max="1000"
+                        // min="18"
+                        // max="1000"
                         step="50"
-                        onChange={(event) => validateStat(event.target.value, minWeight, maxWeight, "weight")}
+                        onChange={(e) => validateStat(e, minWeight, maxWeight)}
                     />
                     {weightError && <label>{weightError}</label>}
                 </div>
@@ -269,8 +301,9 @@ export default function CreatePokemon() {
                     <select
                         name="types"
                         id="form-types-select"
-                        onChange={(e) => validateTypes(e.target.value)}
+                        onChange={(e) => validateTypes(e)}
                     >
+                        <option>--Choose--</option>
                         {typesArray.map((element) => {
                             return (
                                 <option
@@ -281,10 +314,11 @@ export default function CreatePokemon() {
                             )
                         })}
                     </select>
+                    <ul><li>{jsonData.types.map(elm => elm + ", ")}</li></ul>
                     {typesError && <label>{typesError}</label>}
                 </div>
                 <div>
-                    <input type='submit' value='Submit' />
+                    <input type="submit" value="Submit form" />
                 </div>
             </form >
         </div >
