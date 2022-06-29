@@ -39,9 +39,6 @@ export default function CreatePokemon() {
         types: []
     })
 
-<<<<<<< HEAD
-    //#region 
-=======
     const [name, setName] = useState('')
     const [life, setLife] = useState(0)
     const [attack, setAttack] = useState(0)
@@ -53,7 +50,6 @@ export default function CreatePokemon() {
     const [types, setTypes] = useState('')
 
     const [error, setError] = useState('')
->>>>>>> parent of 3a02f31 (Casi tengo el form)
     const [nameError, setNameError] = useState('')
     const [urlError, setUrlError] = useState('')
     const [attackError, setAttackError] = useState('')
@@ -62,16 +58,9 @@ export default function CreatePokemon() {
     const [heightError, setHeightError] = useState('')
     const [weightError, setWeightError] = useState('')
     const [speedError, setSpeedError] = useState('')
-<<<<<<< HEAD
     const [typesError, setTypesError] = useState('')
-    //#endregion
-    function validateSpriteURL(e) {
-        const name = e.target.name;
-        const value = e.target.value;
-=======
 
     function validateSpriteURL(value) {
->>>>>>> parent of 3a02f31 (Casi tengo el form)
         if (!/(https:)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/.test(value)) {
             setUrlError('https protocol and .png .jpg .gif extensions are required')
         } else {
@@ -95,6 +84,7 @@ export default function CreatePokemon() {
             [name]: value
         })
     }
+    /*!/^([1-9][0-9]{0,2}|1000)$/.test(value) || value < min || value > max  */
     function validateStat(e, min, max) {
         const name = e.target.name;
         const value = e.target.value;
@@ -196,16 +186,14 @@ export default function CreatePokemon() {
             history.push('/home')
         }
     }
-<<<<<<< HEAD
-=======
 
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-    }
+    // const handleSubmit = (event) => {
+    //     event.preventDefault();
+    // }
 
-    const dispatch = useDispatch()
-    const typesArray = useSelector((state) => state.types)
+    // const dispatch = useDispatch()
+    // const typesArray = useSelector((state) => state.types)
 
     // const [input, setInput] = useState({
     //     name: "",
@@ -219,7 +207,6 @@ export default function CreatePokemon() {
     //     types: []
     // })
 
->>>>>>> parent of 3a02f31 (Casi tengo el form)
 
     useEffect(() => {
         dispatch(getTypes())
@@ -341,18 +328,8 @@ export default function CreatePokemon() {
                 </div>
                 <div>
                     <label>Types:</label>
-<<<<<<< HEAD
-                    <select
-                        name="types"
-                        id="form-types-select"
-                        onChange={(e) => validateTypes(e)}
-                    >
-                        <option>--Choose--</option>
-                        {typesArray.map((element) => {
-=======
                     {
                         typesArray.map((type, index) => {
->>>>>>> parent of 3a02f31 (Casi tengo el form)
                             return (
                                 <label>
                                     <input
@@ -363,15 +340,8 @@ export default function CreatePokemon() {
                                         key={index}
                                     />{type.name}</label>
                             )
-<<<<<<< HEAD
-                        })}
-                    </select>
-                    <ul><li>{jsonData.types.map(elm => elm + ", ")}</li></ul>
-                    {typesError && <label>{typesError}</label>}
-=======
                         })
                     }
->>>>>>> parent of 3a02f31 (Casi tengo el form)
                 </div>
                 <div>
                     <input type="submit" value="Submit form" />

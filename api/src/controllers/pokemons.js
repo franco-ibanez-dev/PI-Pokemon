@@ -46,7 +46,8 @@ async function getAPIpokemonById(id) {
     obj.speed = result2.stats[5].base_stat;
     obj.height = result2.height;
     obj.weight = result2.weight;
-    obj.types = result2.types.map(i => { return { name: i.type.name } });
+    obj.types = result2.types.map(i => { return { name: `${i.type.name}` } });
+
     return obj;
 }
 

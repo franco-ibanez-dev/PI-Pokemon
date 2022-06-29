@@ -8,7 +8,9 @@ import {
     FYLTER_BY_ORIGIN,
     ORDER_BY_NAME,
     ORDER_BY_ATTACK,
-    GET_POKEMON_BY_NAME
+    GET_POKEMON_BY_NAME,
+    GET_POKEMON_BY_ID,
+    GET_DETAIL
 } from '../../utils/constants/constants'
 
 
@@ -99,6 +101,20 @@ export function getPokemonByName(payload) {
                 payload: json.data
             })
 
+        } catch (error) {
+            console.log(error.response.data);
+        }
+    }
+}
+
+export function getDetail(id) { 
+    return async function (dispatch) {
+        try {
+            const pokemon = await axios.get(GET_POKEMON_BY_ID + id)
+            return dispatch({
+                type: GET_POKEMON_BY_ID,
+                payload: pokemon.data
+            })
         } catch (error) {
             console.log(error.response.data);
         }

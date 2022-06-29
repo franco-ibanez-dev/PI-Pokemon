@@ -6,18 +6,26 @@ import {
     GET_POKEMONS,
     GET_TYPES,
     GET_POKEMON_BY_NAME,
-    POST_POKEMON
+    POST_POKEMON,
+    GET_POKEMON_BY_ID
 } from "../../utils/constants/constants";
 
 const initialState = {
     pokemons: [],
     allPokemons: [],
     types: [],
+    detail: {},
 }
 
 
 function rootReducer(state = initialState, action) {
     switch (action.type) {
+
+        case GET_POKEMON_BY_ID:
+            return {
+                ...state,
+                detail: action.payload
+            }
 
         case GET_POKEMONS:
 

@@ -149,6 +149,7 @@ export default function Home() {
                                 return (
                                     <li key={index}>
                                         <PokemonCard
+                                            id={element.id}
                                             sprite={element.sprite}
                                             name={element.name}
                                             types={element.types}
