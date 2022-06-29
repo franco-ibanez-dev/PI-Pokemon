@@ -1,3 +1,4 @@
+import style from './home.module.css'
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -75,18 +76,19 @@ export default function Home() {
 
     return (
         <div id="generalContainer">
-            <Link to="/pokemon">Create pokemon</Link>
+            <Link className={style.refreshButton} to="/pokemon">Create pokemon</Link>
 
             <h1>POKÉMON SERIES IS SO AWESOME</h1>
 
             <SearchBar />
 
-            <button onClick={(event) => handleClick(event)}>
+            <button className={style.refreshButton} onClick={(event) => handleClick(event)}>
                 Refresh pokemons
             </button>
             <div>
                 <div id='filters-container'>
                     <select
+                        className={style.refreshButton}
                         name="alphabetical-order"
                         id="alphabetical-order-select"
                         onClick={(event) => handleNameSort(event)}
@@ -97,6 +99,7 @@ export default function Home() {
                     </select>
 
                     <select
+                        className={style.refreshButton}
                         name="attack-order"
                         id="attack-order-select"
                         onClick={(event) => handleAttackSort(event)}
@@ -106,6 +109,7 @@ export default function Home() {
                         <option value="desc">Descending</option>
                     </select>
                     <select
+                        className={style.refreshButton}
                         name="types"
                         id="type-select"
                         onChange={(event) => handleTypeFilter(event)}
@@ -126,6 +130,7 @@ export default function Home() {
                     </select>
 
                     <select
+                        className={style.refreshButton}
                         name="origin"
                         id="origin-select"
                         onChange={(event) => handleOriginFilter(event)}
