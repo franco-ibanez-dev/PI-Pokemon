@@ -15,39 +15,9 @@ export default function CreatePokemon() {
     let typesArray = useSelector((state) => state.types)
     typesArray.sort((a, b) => a.name < b.name ? -1 : a.name > b.name ? 1 : 0)
     const history = useHistory()
-    const emptyForm = {
-        name: "",
-        life: 0,
-        attack: 0,
-        sprite: "",
-        defense: 0,
-        speed: 0,
-        height: 0,
-        weight: 0,
-        types: []
-    }
 
-    const [jsonData, setJsonData] = useState({
-        name: "",
-        life: 0,
-        attack: 0,
-        sprite: "",
-        defense: 0,
-        speed: 0,
-        height: 0,
-        weight: 0,
-        types: []
-    })
 
-    const [name, setName] = useState('')
-    const [life, setLife] = useState(0)
-    const [attack, setAttack] = useState(0)
-    const [sprite, setSprite] = useState('')
-    const [defense, setDefense] = useState(0)
-    const [speed, setSpeed] = useState(0)
-    const [height, setHeight] = useState(0)
-    const [weight, setWeight] = useState(0)
-    const [types, setTypes] = useState('')
+
 
     const [error, setError] = useState('')
     const [nameError, setNameError] = useState('')
@@ -60,152 +30,137 @@ export default function CreatePokemon() {
     const [speedError, setSpeedError] = useState('')
     const [typesError, setTypesError] = useState('')
 
-    function validateSpriteURL(value) {
-        if (!/(https:)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/.test(value)) {
-            setUrlError('https protocol and .png .jpg .gif extensions are required')
-        } else {
-            setUrlError('')
-        }
-        setJsonData({
-            ...jsonData,
-            [name]: value
-        })
-    }
-    function validateName(e) {
-        const name = e.target.name;
-        const value = e.target.value;
-        if (!/^(?=.{5,10}$)[a-zA-Z]+(?:-[a-zA-Z]+)*$/.test(value)) {
-            setNameError('Only letters, optional middle hyphen, length between 5 and 10 characters.');
-        } else {
-            setNameError('');
-        }
-        setJsonData({
-            ...jsonData,
-            [name]: value
-        })
-    }
-    /*!/^([1-9][0-9]{0,2}|1000)$/.test(value) || value < min || value > max  */
-    function validateStat(e, min, max) {
-        const name = e.target.name;
-        const value = e.target.value;
-        let errorMessage = `Must be an integer within ${min} and ${max} inclusive`
-        if (!/^([1-9][0-9]{0,2}|1000)$/.test(value) || value < min || value > max) {
-            switch (name) {
-                case "life":
-                    setLifeError(errorMessage)
-                    break;
-                case "speed":
-                    setSpeedError(errorMessage)
-                    break;
-                case "attack":
-                    setAttackError(errorMessage)
-                    break;
-                case "height":
-                    setHeightError(errorMessage)
-                    break;
-                case "weight":
-                    setWeightError(errorMessage)
-                    break;
-                case "defense":
-                    setDefenseError(errorMessage)
-                    break;
-                default:
-                    break;
-            }
-        } else {
-            switch (name) {
-                case "life":
-                    setLifeError("")
-                    break;
-                case "speed":
-                    setSpeedError("")
-                    break;
-                case "attack":
-                    setAttackError("")
-                    break;
-                case "height":
-                    setHeightError("")
-                    break;
-                case "weight":
-                    setWeightError("")
-                    break;
-                case "defense":
-                    setDefenseError("")
-                    break;
-                default:
-                    break;
-            }
-        }
-        setJsonData({
-            ...jsonData,
-            [name]: value
-        })
-    }
-    function validateTypes(e) {
-        const value = e.target.value;
-        const errorMessage = "You can only choose 2 types."
-        if (jsonData.types.length === 2 && !jsonData.types.includes(value)) {
-            setTypesError(errorMessage)
-            const resetLabel = () => setTypesError("")
-            setTimeout(resetLabel, 4000)
-            return
-        }
-        if (jsonData.types.includes(value)) {
-            setJsonData({
-                ...jsonData,
-                types: jsonData.types.filter(elm => elm !== value)
-            })
-            return
-        }
-        setTypesError('')
-        setJsonData({
-            ...jsonData,
-            types: [...jsonData.types, value]
-        })
-    }
+    // function validateSpriteURL(value) {
+    //     if (!/(https:)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/.test(value)) {
+    //         setUrlError('https protocol and .png .jpg .gif extensions are required')
+    //     } else {
+    //         setUrlError('')
+    //     }
+    //     setJsonData({
+    //         ...jsonData,
+    //         [name]: value
+    //     })
+    // }
+    // function validateName(e) {
+    //     const name = e.target.name;
+    //     const value = e.target.value;
+    //     if (!/^(?=.{5,10}$)[a-zA-Z]+(?:-[a-zA-Z]+)*$/.test(value)) {
+    //         setNameError('Only letters, optional middle hyphen, length between 5 and 10 characters.');
+    //     } else {
+    //         setNameError('');
+    //     }
+    //     setJsonData({
+    //         ...jsonData,
+    //         [name]: value
+    //     })
+    // }
+    // /*!/^([1-9][0-9]{0,2}|1000)$/.test(value) || value < min || value > max  */
+    // function validateStat(e, min, max) {
+    //     const name = e.target.name;
+    //     const value = e.target.value;
+    //     let errorMessage = `Must be an integer within ${min} and ${max} inclusive`
+    //     if (!/^([1-9][0-9]{0,2}|1000)$/.test(value) || value < min || value > max) {
+    //         switch (name) {
+    //             case "life":
+    //                 setLifeError(errorMessage)
+    //                 break;
+    //             case "speed":
+    //                 setSpeedError(errorMessage)
+    //                 break;
+    //             case "attack":
+    //                 setAttackError(errorMessage)
+    //                 break;
+    //             case "height":
+    //                 setHeightError(errorMessage)
+    //                 break;
+    //             case "weight":
+    //                 setWeightError(errorMessage)
+    //                 break;
+    //             case "defense":
+    //                 setDefenseError(errorMessage)
+    //                 break;
+    //             default:
+    //                 break;
+    //         }
+    //     } else {
+    //         switch (name) {
+    //             case "life":
+    //                 setLifeError("")
+    //                 break;
+    //             case "speed":
+    //                 setSpeedError("")
+    //                 break;
+    //             case "attack":
+    //                 setAttackError("")
+    //                 break;
+    //             case "height":
+    //                 setHeightError("")
+    //                 break;
+    //             case "weight":
+    //                 setWeightError("")
+    //                 break;
+    //             case "defense":
+    //                 setDefenseError("")
+    //                 break;
+    //             default:
+    //                 break;
+    //         }
+    //     }
+    //     setJsonData({
+    //         ...jsonData,
+    //         [name]: value
+    //     })
+    // }
+    // function validateTypes(e) {
+    //     const value = e.target.value;
+    //     const errorMessage = "You can only choose 2 types."
+    //     if (jsonData.types.length === 2 && !jsonData.types.includes(value)) {
+    //         setTypesError(errorMessage)
+    //         const resetLabel = () => setTypesError("")
+    //         setTimeout(resetLabel, 4000)
+    //         return
+    //     }
+    //     if (jsonData.types.includes(value)) {
+    //         setJsonData({
+    //             ...jsonData,
+    //             types: jsonData.types.filter(elm => elm !== value)
+    //         })
+    //         return
+    //     }
+    //     setTypesError('')
+    //     setJsonData({
+    //         ...jsonData,
+    //         types: [...jsonData.types, value]
+    //     })
+    // }
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(jsonData);
-        if (jsonData.name === '' || jsonData.name === "") {
-            alert('You must fill the form first.')
-        } else {
-            dispatch(postPokemon(jsonData))
-            setJsonData({
-                name: "",
-                life: 0,
-                attack: 0,
-                sprite: "",
-                defense: 0,
-                speed: 0,
-                height: 0,
-                weight: 0,
-                types: []
-            })
-            alert("Your pokemon was posted succesfully!")
-            history.push('/home')
-        }
-    }
+    // const handleSubmit = (e) => {
+    //     e.preventDefault();
+    //     console.log(jsonData);
+    //     if (jsonData.name === '' || jsonData.name === "") {
+    //         alert('You must fill the form first.')
+    //     } else {
+    //         dispatch(postPokemon(jsonData))
+    //         setJsonData({
+    //             name: "",
+    //             life: 0,
+    //             attack: 0,
+    //             sprite: "",
+    //             defense: 0,
+    //             speed: 0,
+    //             height: 0,
+    //             weight: 0,
+    //             types: []
+    //         })
+    //         alert("Your pokemon was posted succesfully!")
+    //         history.push('/home')
+    //     }
+    // }
 
 
     // const handleSubmit = (event) => {
     //     event.preventDefault();
     // }
-
-    // const dispatch = useDispatch()
-    // const typesArray = useSelector((state) => state.types)
-
-    // const [input, setInput] = useState({
-    //     name: "",
-    //     life: 0,
-    //     attack: 0,
-    //     sprite: "",
-    //     defense: 0,
-    //     speed: 0,
-    //     height: 0,
-    //     weight: 0,
-    //     types: []
-    // })
 
 
     useEffect(() => {
@@ -217,7 +172,7 @@ export default function CreatePokemon() {
 
             <Link to="/home"><button>Back home</button></Link>
             <h1>Create a Pokemon of your own!</h1>
-            <form onSubmit={(e) => handleSubmit(e)}>
+            <form >
 
                 <div>
 
@@ -226,9 +181,9 @@ export default function CreatePokemon() {
                         className={nameError && "danger"}
                         type="text"
                         name="name"
-                        value={jsonData.name}
+                        // value={jsonData.name}
                         placeholder="Its name..."
-                        onChange={(e) => validateName(e)}
+                    // onChange={}
                     />
                     {nameError && <label>{nameError}</label>}
                 </div>
@@ -237,11 +192,9 @@ export default function CreatePokemon() {
                     <input
                         className={lifeError && "danger"}
                         type="text"
-                        value={jsonData.life}
+                        // value={jsonData.life}
                         name="life"
-                        // min="30"
-                        // max="145"
-                        onChange={(e) => validateStat(e, minLife, maxLife)}
+                    // onChange={}
                     />
                     {lifeError && <label>{lifeError}</label>}
                 </div>
@@ -250,11 +203,9 @@ export default function CreatePokemon() {
                     <input
                         className={attackError && "danger"}
                         type="text"
-                        value={jsonData.attack}
+                        // value={jsonData.attack}
                         name="attack"
-                        // min="20"
-                        // max="105"
-                        onChange={(e) => validateStat(e, minAttack, maxAttack)}
+                    // onChange={}
 
                     />
                     {attackError && <label>{attackError}</label>}
@@ -264,10 +215,10 @@ export default function CreatePokemon() {
                     <input
                         className={urlError && "danger"}
                         type="text"
-                        value={jsonData.sprite}
+                        // value={jsonData.sprite}
                         name="sprite"
                         placeholder="It's image... (URL)"
-                        onChange={(e) => validateSpriteURL(e)}
+                    // onChange={}
 
                     />
                     {urlError && <label>{urlError}</label>}
@@ -277,11 +228,9 @@ export default function CreatePokemon() {
                     <input
                         className={defenseError && "danger"}
                         type="text"
-                        value={jsonData.defense}
+                        // value={jsonData.defense}
                         name="defense"
-                        // min="20"
-                        // max="110"
-                        onChange={(e) => validateStat(e, minDefense, maxDefense)}
+                    // onChange={}
 
                     />
                     {defenseError && <label>{defenseError}</label>}
@@ -291,11 +240,9 @@ export default function CreatePokemon() {
                     <input
                         className={speedError && "danger"}
                         type="text"
-                        value={jsonData.speed}
+                        // value={jsonData.speed}
                         name="speed"
-                        // min="20"
-                        // max="110"
-                        onChange={(e) => validateStat(e, minSpeed, maxSpeed)}
+                    // onChange={}
                     />
                     {speedError && <label>{speedError}</label>}
                 </div>
@@ -304,11 +251,9 @@ export default function CreatePokemon() {
                     <input
                         className={heightError && "danger"}
                         type="text"
-                        value={jsonData.height}
+                        // value={jsonData.height}
                         name="height"
-                        // min="3"
-                        // max="35"
-                        onChange={(e) => validateStat(e, minHeight, maxHeight)}
+                    // onChange={}
                     />
                     {heightError && <label>{heightError}</label>}
                 </div>
@@ -317,31 +262,26 @@ export default function CreatePokemon() {
                     <input
                         className={weightError && "danger"}
                         type="text"
-                        value={jsonData.weight}
+                        // value={jsonData.weight}
                         name="weight"
-                        // min="18"
-                        // max="1000"
                         step="50"
-                        onChange={(e) => validateStat(e, minWeight, maxWeight)}
+                    // onChange={}
                     />
                     {weightError && <label>{weightError}</label>}
                 </div>
                 <div>
                     <label>Types:</label>
-                    {
-                        typesArray.map((type, index) => {
-                            return (
-                                <label>
-                                    <input
-                                        type="checkbox"
-                                        name={type.name}
-                                        value={type.name}
-                                        onChange={(event) => setTypes(event.target.value)}
-                                        key={index}
-                                    />{type.name}</label>
-                            )
-                        })
-                    }
+                    <select name="types">
+                        <option>Choose</option>
+                        {
+                            typesArray && typesArray.map((elm) => {
+                                return (
+                                    <option value={elm.name}>{`${elm.name[0].toUpperCase()}${elm.name.substr(1)}`}</option>
+                                )
+                            })
+                        }
+                    </select>
+
                 </div>
                 <div>
                     <input type="submit" value="Submit form" />
