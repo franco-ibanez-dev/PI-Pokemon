@@ -8,7 +8,39 @@ import {
 } from "../../utils/constants/constants";
 
 
+export function validate(input, name) {
+    const validName = /^(?=.{5,10}$)[a-zA-Z]+(?:-[a-zA-Z]+)*$/;
+    const noName = "A name is required.";
+    const invalidName = "Only letters, optional middle hyphen, length between 5 and 10 characters.";
+    const validUrl = /(https:)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/;
+    const noUrl = "An URL to an image in required.";
+    const invalidUrl = "https protocol and .png .jpg .gif extensions are required.";
+    const validStat = /^([1-9][0-9]{0,2}|1000)$/;
+    const noStat = `A ${name} is required`;
+    const invalidStat = (min, max) => `Must be an integer within ${min} and ${max} inclusive`;
+    let errors = {};
+    switch (name) {
+        case "name":
+            !input[name] ? errors[name] = noName : !validName.test(input[name]) ? errors[name] = invalidName : delete errors[name];
+            break;
+        case "sprite":
+            !input[name] ? errors[name] = noUrl : !validUrl.test(input[name]) ? errors[name] = invalidUrl : delete errors[name];
+            break;
+        case "life":
+            !input[name] ? errors[name] = noStat : !validStat.test(input[name]) || input[name] < minLife || input[name] > maxLife ? errors[name] = invalidStat(minLife, maxLife) : delete errors[name];
+            break;
+        case "attack":
+        case "defense":
+        case "speed":
+        case "height":
+        case "weight":
+        default:
+            break;
+    }
 
+
+    return errors;
+}
 
 export default function CreatePokemon() {
     const dispatch = useDispatch()
@@ -28,10 +60,16 @@ export default function CreatePokemon() {
         types: [],
         disabled: true,
     })
-    const [error, setError] = useState({})
+    const [errors, setErrors] = useState({})
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
+
+        setErrors(validate({
+            ...input,
+            [name]: value
+        }, name))
+
         setInput({
             ...input,
             [name]: value
@@ -39,40 +77,6 @@ export default function CreatePokemon() {
     }
 
 
-    // const [nameError, setNameError] = useState('')
-    // const [urlError, setUrlError] = useState('')
-    // const [attackError, setAttackError] = useState('')
-    // const [lifeError, setLifeError] = useState('')
-    // const [defenseError, setDefenseError] = useState('')
-    // const [heightError, setHeightError] = useState('')
-    // const [weightError, setWeightError] = useState('')
-    // const [speedError, setSpeedError] = useState('')
-    // const [typesError, setTypesError] = useState('')
-
-    // function validateSpriteURL(value) {
-    //     if (!/(https:)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/.test(value)) {
-    //         setUrlError('https protocol and .png .jpg .gif extensions are required')
-    //     } else {
-    //         setUrlError('')
-    //     }
-    //     setJsonData({
-    //         ...jsonData,
-    //         [name]: value
-    //     })
-    // }
-    // function validateName(e) {
-    //     const name = e.target.name;
-    //     const value = e.target.value;
-    //     if (!/^(?=.{5,10}$)[a-zA-Z]+(?:-[a-zA-Z]+)*$/.test(value)) {
-    //         setNameError('Only letters, optional middle hyphen, length between 5 and 10 characters.');
-    //     } else {
-    //         setNameError('');
-    //     }
-    //     setJsonData({
-    //         ...jsonData,
-    //         [name]: value
-    //     })
-    // }
     // /*!/^([1-9][0-9]{0,2}|1000)$/.test(value) || value < min || value > max  */
     // function validateStat(e, min, max) {
     //     const name = e.target.name;
@@ -198,7 +202,7 @@ export default function CreatePokemon() {
                                 <label>{elm === "sprite" ? "Image: " : `${elm[0].toUpperCase()}${elm.substr(1)}: `}</label>
                                 {elm !== "types" ?
                                     (<input
-                                        className={error[elm] && "danger"}
+                                        className={errors[elm] && "danger"}
                                         type={elm === "name" || elm === "sprite" ? "text" : "number"}
                                         value={input[elm]}
                                         name={elm}
@@ -219,7 +223,7 @@ export default function CreatePokemon() {
                                         </select>
                                     )
                                 }
-                                {error[elm] && <label>{error[elm]}</label>}
+                                {errors[elm] && <label>{errors[elm]}</label>}
                             </div>
                         )
                     })
