@@ -15,20 +15,39 @@ export default function CreatePokemon() {
     let typesArray = useSelector((state) => state.types)
     typesArray.sort((a, b) => a.name < b.name ? -1 : a.name > b.name ? 1 : 0)
     const history = useHistory()
+    const stat = ["name", "sprite", "life", "attack", "defense", "speed", "height", "weight", "types"]
+    const [input, setInput] = useState({
+        name: "",
+        sprite: "",
+        life: 0,
+        attack: 0,
+        defense: 0,
+        speed: 0,
+        height: 0,
+        weight: 0,
+        types: [],
+        disabled: true,
+    })
+    const [error, setError] = useState({})
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setInput({
+            ...input,
+            [name]: value
+        })
+    }
 
 
-
-
-    const [error, setError] = useState('')
-    const [nameError, setNameError] = useState('')
-    const [urlError, setUrlError] = useState('')
-    const [attackError, setAttackError] = useState('')
-    const [lifeError, setLifeError] = useState('')
-    const [defenseError, setDefenseError] = useState('')
-    const [heightError, setHeightError] = useState('')
-    const [weightError, setWeightError] = useState('')
-    const [speedError, setSpeedError] = useState('')
-    const [typesError, setTypesError] = useState('')
+    // const [nameError, setNameError] = useState('')
+    // const [urlError, setUrlError] = useState('')
+    // const [attackError, setAttackError] = useState('')
+    // const [lifeError, setLifeError] = useState('')
+    // const [defenseError, setDefenseError] = useState('')
+    // const [heightError, setHeightError] = useState('')
+    // const [weightError, setWeightError] = useState('')
+    // const [speedError, setSpeedError] = useState('')
+    // const [typesError, setTypesError] = useState('')
 
     // function validateSpriteURL(value) {
     //     if (!/(https:)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/.test(value)) {
@@ -169,122 +188,44 @@ export default function CreatePokemon() {
 
     return (
         <div>
-
             <Link to="/home"><button>Back home</button></Link>
             <h1>Create a Pokemon of your own!</h1>
             <form >
-
+                {
+                    stat && stat.map((elm) => {
+                        return (
+                            <div>
+                                <label>{elm === "sprite" ? "Image: " : `${elm[0].toUpperCase()}${elm.substr(1)}: `}</label>
+                                {elm !== "types" ?
+                                    (<input
+                                        className={error[elm] && "danger"}
+                                        type={elm === "name" || elm === "sprite" ? "text" : "number"}
+                                        value={input[elm]}
+                                        name={elm}
+                                        placeholder={elm === "name" ? "Its name..." : elm === "sprite" ? "Its image URL..." : ""}
+                                        onChange={(e) => handleInputChange(e)}
+                                    />)
+                                    :
+                                    (
+                                        <select name={elm}>
+                                            <option>Choose</option>
+                                            {
+                                                typesArray && typesArray.map((elm) => {
+                                                    return (
+                                                        <option value={elm.name}>{`${elm.name[0].toUpperCase()}${elm.name.substr(1)}`}</option>
+                                                    )
+                                                })
+                                            }
+                                        </select>
+                                    )
+                                }
+                                {error[elm] && <label>{error[elm]}</label>}
+                            </div>
+                        )
+                    })
+                }
                 <div>
-
-                    <label>Name:</label>
-                    <input
-                        className={nameError && "danger"}
-                        type="text"
-                        name="name"
-                        // value={jsonData.name}
-                        placeholder="Its name..."
-                    // onChange={}
-                    />
-                    {nameError && <label>{nameError}</label>}
-                </div>
-                <div>
-                    <label>Life:</label>
-                    <input
-                        className={lifeError && "danger"}
-                        type="text"
-                        // value={jsonData.life}
-                        name="life"
-                    // onChange={}
-                    />
-                    {lifeError && <label>{lifeError}</label>}
-                </div>
-                <div>
-                    <label>Attack:</label>
-                    <input
-                        className={attackError && "danger"}
-                        type="text"
-                        // value={jsonData.attack}
-                        name="attack"
-                    // onChange={}
-
-                    />
-                    {attackError && <label>{attackError}</label>}
-                </div>
-                <div>
-                    <label>Image:</label>
-                    <input
-                        className={urlError && "danger"}
-                        type="text"
-                        // value={jsonData.sprite}
-                        name="sprite"
-                        placeholder="It's image... (URL)"
-                    // onChange={}
-
-                    />
-                    {urlError && <label>{urlError}</label>}
-                </div>
-                <div>
-                    <label>Defense:</label>
-                    <input
-                        className={defenseError && "danger"}
-                        type="text"
-                        // value={jsonData.defense}
-                        name="defense"
-                    // onChange={}
-
-                    />
-                    {defenseError && <label>{defenseError}</label>}
-                </div>
-                <div>
-                    <label >Speed:</label>
-                    <input
-                        className={speedError && "danger"}
-                        type="text"
-                        // value={jsonData.speed}
-                        name="speed"
-                    // onChange={}
-                    />
-                    {speedError && <label>{speedError}</label>}
-                </div>
-                <div>
-                    <label>Height:</label>
-                    <input
-                        className={heightError && "danger"}
-                        type="text"
-                        // value={jsonData.height}
-                        name="height"
-                    // onChange={}
-                    />
-                    {heightError && <label>{heightError}</label>}
-                </div>
-                <div>
-                    <label>Weight:</label>
-                    <input
-                        className={weightError && "danger"}
-                        type="text"
-                        // value={jsonData.weight}
-                        name="weight"
-                        step="50"
-                    // onChange={}
-                    />
-                    {weightError && <label>{weightError}</label>}
-                </div>
-                <div>
-                    <label>Types:</label>
-                    <select name="types">
-                        <option>Choose</option>
-                        {
-                            typesArray && typesArray.map((elm) => {
-                                return (
-                                    <option value={elm.name}>{`${elm.name[0].toUpperCase()}${elm.name.substr(1)}`}</option>
-                                )
-                            })
-                        }
-                    </select>
-
-                </div>
-                <div>
-                    <input type="submit" value="Submit form" />
+                    {!input.disabled && <input type="submit" value="Submit form" />}
                 </div>
             </form >
         </div >
