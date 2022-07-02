@@ -14,7 +14,7 @@ export function validate(input, name, value) {
     const statValidation = (min, max) => {
         return !input[name] ? errors[name] = noStat : !validStat.test(input[name]) || input[name] < min || input[name] > max ? errors[name] = invalidStat(min, max) : delete errors[name];
     }
-    const resetLabel = (name) => delete errors[name];
+    // const resetLabel = (name) => delete errors[name];
     const validName = /^(?=.{5,10}$)[a-zA-Z]+(?:-[a-zA-Z]+)*$/;
     const validUrl = /(https:)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/;
     const validStat = /^([1-9][0-9]{0,2}|1000)$/;
@@ -23,9 +23,9 @@ export function validate(input, name, value) {
     const invalidName = "Only letters, optional middle hyphen, length between 5 and 10 characters.";
     const noUrl = "An URL to an image in required.";
     const invalidUrl = "https protocol and .png .jpg .gif extensions are required.";
-    const noStat = `A ${name} stat is required.`;
+    const noStat = ` ${name} stat is required.`;
     const invalidStat = (min, max) => `Must be an integer within ${min} and ${max} inclusive.`;
-    const noType = "Select at least one type.";
+    // const noType = "Select at least one type.";
     const invalidTypes = "Only one or two uniques types are allowed, to delete a selection click on it again."
     let errors = {};
     switch (name) {
@@ -54,7 +54,6 @@ export function validate(input, name, value) {
             statValidation(minWeight, maxWeight)
             break;
         case "types":
-            console.log(input[name]);
             if (input[name].length === 3) {
                 errors[name] = invalidTypes;
                 break;
@@ -86,13 +85,12 @@ export default function CreatePokemon() {
         height: 0,
         weight: 0,
         types: [],
-        disabled: true,
     })
     const [errors, setErrors] = useState({})
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        console.log({ name, value });
+        // console.log({ name, value });
         if (name === "types") {
             setErrors(validate({ ...input, [name]: [...input[name], value] }, name, value))
         } else {
@@ -102,48 +100,43 @@ export default function CreatePokemon() {
             if (input.types.includes(value)) {
                 setInput({
                     ...input,
-                    types: input.types.filter(elm => elm !== value)
+                    types: input.types.filter(elm => elm !== value),
                 })
             } else {
                 if (input.types.length < 2) {
                     setInput({
                         ...input,
-                        types: [...input.types, value]
+                        types: [...input.types, value],
                     })
                 }
             }
         } else {
             setInput({
                 ...input,
-                [name]: value
+                [name]: value,
             })
         }
+
     }
 
-
-
-    // const handleSubmit = (e) => {
-    //     e.preventDefault();
-    //     console.log(jsonData);
-    //     if (jsonData.name === '' || jsonData.name === "") {
-    //         alert('You must fill the form first.')
-    //     } else {
-    //         dispatch(postPokemon(jsonData))
-    //         setJsonData({
-    //             name: "",
-    //             life: 0,
-    //             attack: 0,
-    //             sprite: "",
-    //             defense: 0,
-    //             speed: 0,
-    //             height: 0,
-    //             weight: 0,
-    //             types: []
-    //         })
-    //         alert("Your pokemon was posted succesfully!")
-    //         history.push('/home')
-    //     }
-    // }
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // console.log(jsonData);
+        dispatch(postPokemon(input))
+        setInput({
+            name: "",
+            life: 0,
+            attack: 0,
+            sprite: "",
+            defense: 0,
+            speed: 0,
+            height: 0,
+            weight: 0,
+            types: []
+        })
+        // alert("Your pokemon was posted succesfully!")
+        history.push('/home')
+    }
 
 
     useEffect(() => {
@@ -154,7 +147,7 @@ export default function CreatePokemon() {
         <div>
             <Link to="/home"><button>Back home</button></Link>
             <h1>Create a Pokemon of your own!</h1>
-            <form >
+            <form onSubmit={(e) => { handleSubmit(e) }}>
                 {
                     stat && stat.map((elm) => {
                         return (
@@ -171,7 +164,7 @@ export default function CreatePokemon() {
                                     />)
                                     :
                                     (
-                                        <select name={elm} onChange={(e) => handleInputChange(e)}>
+                                        <select name={elm} onChange={(e, errors) => handleInputChange(e, errors)}>
                                             <option>--Choose--</option>
                                             {
                                                 typesArray && typesArray.map((elm) => {
@@ -193,7 +186,9 @@ export default function CreatePokemon() {
                 }
                 {input.types.length !== 0 && <p>Types: {input.types.map((elm) => `${elm}, `)}</p>}
                 <div>
-                    {!input.disabled && <input type="submit" value="Submit form" />}
+                    <input disabled={input.name === "" || input.sprite === "" || input.attack === 0
+                        || input.defense === 0 || input.speed === 0 || input.life === 0
+                        || input.height === 0 || input.weight === 0 || input.types.length === 0 ? true : false} type="submit" value="Submit" />
                 </div>
             </form >
         </div >

@@ -130,7 +130,8 @@ async function getPokemonById(req, res, next) {
 }
 
 async function postPokemon(req, res, next) {
-    const { name, life, attack, sprite, defense, speed, height, weight, types } = req.body;
+    const name = req.body.name.toLowerCase()
+    const { life, attack, sprite, defense, speed, height, weight, types } = req.body;
     if (name) {
         try {
             const [pokemonCreated, created] = await Pokemon.findOrCreate({
