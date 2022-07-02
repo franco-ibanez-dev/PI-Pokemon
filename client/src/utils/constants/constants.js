@@ -15,13 +15,18 @@ export const GET_DETAIL = 'GET_DETAIL'
 
 export const minLife = 30
 export const maxLife = 145
+
 export const minAttack = 20
 export const maxAttack = 105
+
 export const minDefense = 20
 export const maxDefense = 110
+
 export const minSpeed = 20
 export const maxSpeed = 110
+
 export const minHeight = 3
 export const maxHeight = 35
+
 export const minWeight = 18
 export const maxWeight = 1000

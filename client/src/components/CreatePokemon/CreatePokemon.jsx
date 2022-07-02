@@ -4,20 +4,29 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { postPokemon, getTypes } from "../../redux/actions";
 import {
-    minLife, maxLife, minAttack, maxAttack, minDefense, maxDefense, minHeight, maxHeight, minSpeed, maxSpeed, minWeight, maxWeight
+    minLife, maxLife, minAttack, maxAttack,
+    minDefense, maxDefense, minHeight, maxHeight,
+    minSpeed, maxSpeed, minWeight, maxWeight
 } from "../../utils/constants/constants";
 
 
-export function validate(input, name) {
+export function validate(input, name, value) {
+    const statValidation = (min, max) => {
+        return !input[name] ? errors[name] = noStat : !validStat.test(input[name]) || input[name] < min || input[name] > max ? errors[name] = invalidStat(min, max) : delete errors[name];
+    }
+    const resetLabel = (name) => delete errors[name];
     const validName = /^(?=.{5,10}$)[a-zA-Z]+(?:-[a-zA-Z]+)*$/;
+    const validUrl = /(https:)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/;
+    const validStat = /^([1-9][0-9]{0,2}|1000)$/;
+
     const noName = "A name is required.";
     const invalidName = "Only letters, optional middle hyphen, length between 5 and 10 characters.";
-    const validUrl = /(https:)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/;
     const noUrl = "An URL to an image in required.";
     const invalidUrl = "https protocol and .png .jpg .gif extensions are required.";
-    const validStat = /^([1-9][0-9]{0,2}|1000)$/;
-    const noStat = `A ${name} is required`;
-    const invalidStat = (min, max) => `Must be an integer within ${min} and ${max} inclusive`;
+    const noStat = `A ${name} stat is required.`;
+    const invalidStat = (min, max) => `Must be an integer within ${min} and ${max} inclusive.`;
+    const noType = "Select at least one type.";
+    const invalidTypes = "Only two uniques types are allowed."
     let errors = {};
     switch (name) {
         case "name":
@@ -27,18 +36,38 @@ export function validate(input, name) {
             !input[name] ? errors[name] = noUrl : !validUrl.test(input[name]) ? errors[name] = invalidUrl : delete errors[name];
             break;
         case "life":
-            !input[name] ? errors[name] = noStat : !validStat.test(input[name]) || input[name] < minLife || input[name] > maxLife ? errors[name] = invalidStat(minLife, maxLife) : delete errors[name];
+            statValidation(minLife, maxLife)
             break;
         case "attack":
+            statValidation(minAttack, maxAttack)
+            break;
         case "defense":
+            statValidation(minDefense, maxDefense)
+            break;
         case "speed":
+            statValidation(minSpeed, maxSpeed)
+            break;
         case "height":
+            statValidation(minHeight, maxHeight)
+            break;
         case "weight":
+            statValidation(minWeight, maxWeight)
+            break;
+        case "types":
+            console.log(input[name]);
+            if (input[name].length === 2) {
+                errors[name] = invalidTypes;
+                break;
+            } else if (input[name].includes(value)) {
+                errors[name] = "Already selected"
+                break;
+            } else {
+                delete errors[name];
+                break;
+            }
         default:
             break;
     }
-
-
     return errors;
 }
 
@@ -64,98 +93,33 @@ export default function CreatePokemon() {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
+        console.log({ name, value });
+        if (name === "types") {
+            setErrors(validate({ ...input, [name]: [...input[name], value] }, name, value))
+        } else {
+            setErrors(validate({ ...input, [name]: value }, name))
+        }
+        // if (name === "types") {
+        //     setInput({
+        //         ...input,
+        //         types: [...input.types, value]
+        //     })
+        // } else {
+        //     setInput({
+        //         ...input,
+        //         [name]: value
+        //     })
+        // }
+    }
 
-        setErrors(validate({
-            ...input,
-            [name]: value
-        }, name))
-
+    const handleResetTypes = (e) => {
         setInput({
             ...input,
-            [name]: value
+            types: []
         })
     }
 
 
-    // /*!/^([1-9][0-9]{0,2}|1000)$/.test(value) || value < min || value > max  */
-    // function validateStat(e, min, max) {
-    //     const name = e.target.name;
-    //     const value = e.target.value;
-    //     let errorMessage = `Must be an integer within ${min} and ${max} inclusive`
-    //     if (!/^([1-9][0-9]{0,2}|1000)$/.test(value) || value < min || value > max) {
-    //         switch (name) {
-    //             case "life":
-    //                 setLifeError(errorMessage)
-    //                 break;
-    //             case "speed":
-    //                 setSpeedError(errorMessage)
-    //                 break;
-    //             case "attack":
-    //                 setAttackError(errorMessage)
-    //                 break;
-    //             case "height":
-    //                 setHeightError(errorMessage)
-    //                 break;
-    //             case "weight":
-    //                 setWeightError(errorMessage)
-    //                 break;
-    //             case "defense":
-    //                 setDefenseError(errorMessage)
-    //                 break;
-    //             default:
-    //                 break;
-    //         }
-    //     } else {
-    //         switch (name) {
-    //             case "life":
-    //                 setLifeError("")
-    //                 break;
-    //             case "speed":
-    //                 setSpeedError("")
-    //                 break;
-    //             case "attack":
-    //                 setAttackError("")
-    //                 break;
-    //             case "height":
-    //                 setHeightError("")
-    //                 break;
-    //             case "weight":
-    //                 setWeightError("")
-    //                 break;
-    //             case "defense":
-    //                 setDefenseError("")
-    //                 break;
-    //             default:
-    //                 break;
-    //         }
-    //     }
-    //     setJsonData({
-    //         ...jsonData,
-    //         [name]: value
-    //     })
-    // }
-    // function validateTypes(e) {
-    //     const value = e.target.value;
-    //     const errorMessage = "You can only choose 2 types."
-    //     if (jsonData.types.length === 2 && !jsonData.types.includes(value)) {
-    //         setTypesError(errorMessage)
-    //         const resetLabel = () => setTypesError("")
-    //         setTimeout(resetLabel, 4000)
-    //         return
-    //     }
-    //     if (jsonData.types.includes(value)) {
-    //         setJsonData({
-    //             ...jsonData,
-    //             types: jsonData.types.filter(elm => elm !== value)
-    //         })
-    //         return
-    //     }
-    //     setTypesError('')
-    //     setJsonData({
-    //         ...jsonData,
-    //         types: [...jsonData.types, value]
-    //     })
-    // }
 
     // const handleSubmit = (e) => {
     //     e.preventDefault();
@@ -178,11 +142,6 @@ export default function CreatePokemon() {
     //         alert("Your pokemon was posted succesfully!")
     //         history.push('/home')
     //     }
-    // }
-
-
-    // const handleSubmit = (event) => {
-    //     event.preventDefault();
     // }
 
 
@@ -211,12 +170,15 @@ export default function CreatePokemon() {
                                     />)
                                     :
                                     (
-                                        <select name={elm}>
-                                            <option>Choose</option>
+                                        <select name={elm} onChange={(e) => handleInputChange(e)}>
+                                            <option>--Choose--</option>
                                             {
                                                 typesArray && typesArray.map((elm) => {
                                                     return (
-                                                        <option value={elm.name}>{`${elm.name[0].toUpperCase()}${elm.name.substr(1)}`}</option>
+                                                        <option
+                                                            value={elm.name}
+                                                        >
+                                                            {`${elm.name[0].toUpperCase()}${elm.name.substr(1)}`}</option>
                                                     )
                                                 })
                                             }
@@ -228,6 +190,8 @@ export default function CreatePokemon() {
                         )
                     })
                 }
+                {<button onChange={(e) => handleResetTypes(e)}>Reset types selection</button>}
+                {input.types.length !== 0 && <p>Types: {input.types.map((elm) => `${elm}, `)}</p>}
                 <div>
                     {!input.disabled && <input type="submit" value="Submit form" />}
                 </div>
