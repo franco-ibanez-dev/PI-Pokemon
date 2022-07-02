@@ -4,10 +4,10 @@ import style from './landingPage.module.css'
 
 export default function LandingPage() {
     return (
-        <div id={style.LandingPage}>
-            <h1>Welcome to my awesome webpage!</h1>
+        <div id={style.landingPage}>
+            <h1 id={style.title}>Welcome to my awesome webpage!</h1>
             <Link to="/home" >
-                <button>Enter</button>
+                <button id={style.button}>Enter</button>
             </Link>
         </div>
     )

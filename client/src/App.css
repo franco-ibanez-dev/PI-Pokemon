@@ -1,3 +1,10 @@
+
+html,
+body {
+  width: 100%;
+  margin: 0px;
+}
+
 .App {
   text-align: center;
 }
@@ -99,12 +106,12 @@
   border: 1px solid black;
 }
 
-#filters-container{
+#filters-container {
   display: flex;
   justify-content: space-evenly;
   padding: 10px;
 }
 
-.danger{
-    border: red 5px solid;
+.danger {
+  border: red 5px solid;
 }

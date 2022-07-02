@@ -1,3 +1,69 @@
+@font-face {
+    font-family: 'IBM-SemiBold';
+    src: url('../../utils/fonts/IBMPlexMono-SemiBold.ttf')format('truetype');
+}
+
+@font-face {
+    font-family: 'IBM-Bold';
+    src: url('../../utils/fonts/IBMPlexMono-Bold.ttf')format('truetype');
+}
+
+@font-face {
+    font-family: 'IBM-Italic';
+    src: url('../../utils/fonts/IBMPlexMono-BoldItalic.ttf')format('truetype');
+}
+
+div h1 button {
+    margin: 0;
+    padding: 0;
+}
+
 #landingPage {
-    background: url(../../images/wp9382702-sinnoh-region-pokemon-wallpapers.jpg) no-repeat center center fixed;
+    background: url(../../images/landing-page-3.jpg) no-repeat center center fixed;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+#title {
+    font-family: 'IBM-SemiBold', sans-serif;
+    font-size: 40px;
+    width: 60%;
+    color: white;
+    position: absolute;
+    left: 10px;
+    top: 50px;
+
+}
+
+#button {
+    font-family: 'IBM-Bold', sans-serif;
+    position: absolute;
+    left: 250px;
+    top: 200px;
+
+    background-color: #d64b2c;
+    border: white;
+    color: rgb(7, 7, 7);
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: rgb(219, 132, 26) overline underline;
+    display: flex;
+    font-size: 50px;
+    font-weight: bold;
+    border-radius: 26%;
+
+    transition-duration: 0.4s;
+}
+
+#button:hover {
+    background-color: rgb(219, 132, 26);
+    text-decoration: #d64b2c overline underline;
+    ;
+    /* Green */
+    color: rgb(7, 7, 7);
 }
