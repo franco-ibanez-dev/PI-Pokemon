@@ -26,7 +26,7 @@ export function validate(input, name, value) {
     const noStat = `A ${name} stat is required.`;
     const invalidStat = (min, max) => `Must be an integer within ${min} and ${max} inclusive.`;
     const noType = "Select at least one type.";
-    const invalidTypes = "Only two uniques types are allowed."
+    const invalidTypes = "Only one or two uniques types are allowed, to delete a selection click on it again."
     let errors = {};
     switch (name) {
         case "name":
@@ -55,16 +55,15 @@ export function validate(input, name, value) {
             break;
         case "types":
             console.log(input[name]);
-            if (input[name].length === 2) {
+            if (input[name].length === 3) {
                 errors[name] = invalidTypes;
                 break;
             } else if (input[name].includes(value)) {
-                errors[name] = "Already selected"
-                break;
-            } else {
                 delete errors[name];
                 break;
             }
+            delete errors[name];
+            break;
         default:
             break;
     }
@@ -99,24 +98,26 @@ export default function CreatePokemon() {
         } else {
             setErrors(validate({ ...input, [name]: value }, name))
         }
-        // if (name === "types") {
-        //     setInput({
-        //         ...input,
-        //         types: [...input.types, value]
-        //     })
-        // } else {
-        //     setInput({
-        //         ...input,
-        //         [name]: value
-        //     })
-        // }
-    }
-
-    const handleResetTypes = (e) => {
-        setInput({
-            ...input,
-            types: []
-        })
+        if (name === "types") {
+            if (input.types.includes(value)) {
+                setInput({
+                    ...input,
+                    types: input.types.filter(elm => elm !== value)
+                })
+            } else {
+                if (input.types.length < 2) {
+                    setInput({
+                        ...input,
+                        types: [...input.types, value]
+                    })
+                }
+            }
+        } else {
+            setInput({
+                ...input,
+                [name]: value
+            })
+        }
     }
 
 
@@ -190,7 +191,6 @@ export default function CreatePokemon() {
                         )
                     })
                 }
-                {<button onChange={(e) => handleResetTypes(e)}>Reset types selection</button>}
                 {input.types.length !== 0 && <p>Types: {input.types.map((elm) => `${elm}, `)}</p>}
                 <div>
                     {!input.disabled && <input type="submit" value="Submit form" />}
