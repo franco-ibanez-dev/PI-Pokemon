@@ -53,6 +53,9 @@
     width: max-content;
     position: absolute;
     left: 50px;
+    top: 80px;
+    /* background-color: black; */
+    /* border-radius: 50%; */
 }
 
 #name {
