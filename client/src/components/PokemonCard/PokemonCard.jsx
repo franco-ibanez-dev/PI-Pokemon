@@ -16,14 +16,17 @@ export default function PokemonCard({ sprite, name, types, id }) {
                 />
             </Link>
             <h2 id={style.name}>{name}</h2>
-            <ul id={style.types}>{
-                types.map((element) => {
-                    key++;
-                    return (
-                        <li key={key}>{element.name}</li>
-                    )
-                })
-            }
+
+            <ul
+                aria-label="Its types:"
+                id={style.types}>{
+                    types.map((element) => {
+                        key++;
+                        return (
+                            <li key={key}>{element.name}</li>
+                        )
+                    })
+                }
             </ul>
 
         </div >

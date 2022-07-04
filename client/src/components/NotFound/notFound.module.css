@@ -3,6 +3,15 @@
     src: url('../../utils/fonts/IBMPlexMono-Regular.ttf')format('truetype');
 }
 
+@font-face {
+    font-family: 'IBM-SemiBold';
+    src: url('../../utils/fonts/IBMPlexMono-SemiBold.ttf')format('truetype');
+}
+
+@font-face {
+    font-family: 'IBM-Bold';
+    src: url('../../utils/fonts/IBMPlexMono-Bold.ttf')format('truetype');
+}
 
 #NotFound {
     background-color: blueviolet;
@@ -12,8 +21,10 @@
 }
 
 p {
-    font-family: 'IBM-Regular';
+    font-family: 'IBM-Bold';
     color: beige;
+    background-color: #000000;
+    
 }
 
 #button {

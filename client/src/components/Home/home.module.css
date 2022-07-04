@@ -26,6 +26,7 @@
     justify-content: left;
     flex-flow: column;
     flex-wrap: wrap;
+    width: fixed;
 }
 
 
@@ -62,7 +63,7 @@
     /* border: 2px red solid; */
     justify-content: space-evenly;
     padding: 15px;
-    
+
 }
 
 #pokemonsList {

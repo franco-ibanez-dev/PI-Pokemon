@@ -41,8 +41,19 @@
     border-radius: 25px;
 }
 
-#type {
-    font-family: 'IBM-Regular';
+#types {
+    font-family: 'IBM-Bold';
     list-style-type: none;
-    list-style-position: inside;
+    list-style-position: outside;
+    list-style-image: none;
+    background-color: honeydew;
+    font-size: 14px;
+    border-radius: 10px;
+}   
+
+#types:before {
+    content: attr(aria-label);
+    font-size: 90%;
+    font-weight: 200;
+
 }
