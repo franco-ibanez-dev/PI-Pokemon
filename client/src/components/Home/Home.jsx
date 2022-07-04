@@ -75,20 +75,23 @@ export default function Home() {
 
 
     return (
-        <div id="generalContainer">
-            <Link className={style.refreshButton} to="/pokemon">Create pokemon</Link>
+        <div id={style.generalContainer}>
+            <div id={style.sideBar}>
+                <h1 id={style.heading}>This is my individual project!</h1>
 
-            <h1>POKÉMON SERIES IS SO AWESOME</h1>
+                <SearchBar />
 
-            <SearchBar />
+                <Link id={style.createButton} className={style.button} to="/pokemon">Create pokemon</Link>
 
-            <button className={style.refreshButton} onClick={(event) => handleClick(event)}>
-                Refresh pokemons
-            </button>
+                <button className={style.button} id={style.refreshButton} onClick={(event) => handleClick(event)}>
+                    Refresh pokemons
+                </button>
+
+            </div>
             <div>
-                <div id='filters-container'>
+                <div id={style.filters_container}>
                     <select
-                        className={style.refreshButton}
+                        className={style.button}
                         name="alphabetical-order"
                         id="alphabetical-order-select"
                         onClick={(event) => handleNameSort(event)}
@@ -99,7 +102,7 @@ export default function Home() {
                     </select>
 
                     <select
-                        className={style.refreshButton}
+                        className={style.button}
                         name="attack-order"
                         id="attack-order-select"
                         onClick={(event) => handleAttackSort(event)}
@@ -109,7 +112,7 @@ export default function Home() {
                         <option value="desc">Descending</option>
                     </select>
                     <select
-                        className={style.refreshButton}
+                        className={style.button}
                         name="types"
                         id="type-select"
                         onChange={(event) => handleTypeFilter(event)}
@@ -130,7 +133,7 @@ export default function Home() {
                     </select>
 
                     <select
-                        className={style.refreshButton}
+                        className={style.button}
                         name="origin"
                         id="origin-select"
                         onChange={(event) => handleOriginFilter(event)}

@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { getPokemonByName } from '../../redux/actions';
+import style from './searchBar.module.css';
 
 export default function SearchBar() {
     const dispatch = useDispatch()
@@ -21,12 +22,13 @@ export default function SearchBar() {
     return (
         <div>
             <input
+                id={style.searchBox}
                 type="text"
                 placeholder='Search...'
                 value={name}
                 onChange={(event) => handleInputChange(event)}
             />
-            <button type="submit" onClick={(event) => handleSubmit(event)}>Search</button>
+            <button className={style.button} type="submit" onClick={(event) => handleSubmit(event)}>Search</button>
         </div>
     )
 }
