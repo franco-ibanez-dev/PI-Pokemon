@@ -14,7 +14,6 @@
     width: 100%
 }
 
-
 #heading {
     order: -2;
     font-family: 'IBM-SemiBold';
@@ -28,7 +27,6 @@
     flex-wrap: wrap;
     width: fixed;
 }
-
 
 #createButton {
     order: 1;

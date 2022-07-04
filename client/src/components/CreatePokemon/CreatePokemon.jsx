@@ -187,7 +187,7 @@ export default function CreatePokemon() {
                         )
                     })
                 }
-                {input.types.length !== 0 && <p id={style.types}>Types: {input.types.map((elm) => `${elm}, `)}</p>}
+                {input.types.length !== 0 && <p id={style[`type_list`]}>Types: {input.types.map((elm) => `${elm}, `)}</p>}
                 <div>
                     <input
                         id={style.submitButton}
