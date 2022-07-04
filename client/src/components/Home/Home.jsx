@@ -151,7 +151,7 @@ export default function Home() {
                         allPokemons={allPokemons.length}
                         pagination={pagination}
                     />
-                    <ul id='pokemonsArea'>
+                    <ul id={style.pokemonsList}>
                         {currentPokemons.length > 0 &&
                             currentPokemons?.map((element, index) => {
                                 return (

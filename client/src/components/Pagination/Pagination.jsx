@@ -1,4 +1,5 @@
 import React from 'react';
+import style from './pagination.module.css'
 
 function Pagination({ pokemonsPerPage, allPokemons, pagination }) {
 
@@ -10,7 +11,7 @@ function Pagination({ pokemonsPerPage, allPokemons, pagination }) {
     return (
 
         <nav>
-            <div className='pagination-container'>
+            <div className={style.pagination}>
                 {numberOfPages?.map((number, index) => {
                     return (
                         <a key={index} onClick={() => pagination(number)} href="#!">{number}</a>

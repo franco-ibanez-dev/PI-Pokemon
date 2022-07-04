@@ -1,0 +1,48 @@
+@font-face {
+    font-family: 'IBM-SemiBold';
+    src: url('../../utils/fonts/IBMPlexMono-SemiBold.ttf')format('truetype');
+}
+
+@font-face {
+    font-family: 'IBM-Bold';
+    src: url('../../utils/fonts/IBMPlexMono-Bold.ttf')format('truetype');
+}
+
+@font-face {
+    font-family: 'IBM-Italic';
+    src: url('../../utils/fonts/IBMPlexMono-BoldItalic.ttf')format('truetype');
+}
+
+@font-face {
+    font-family: 'IBM-Regular';
+    src: url('../../utils/fonts/IBMPlexMono-Regular.ttf')format('truetype');
+}
+
+.card {
+    padding: 10px;
+}
+
+.sprite {
+    height: 160px;
+    width: 160px;
+    border-radius: 40%;
+}
+
+.sprite:hover {
+    filter: drop-shadow(30px 30px 40px rgb(255, 255, 255));
+
+}
+
+#name {
+    font-family: 'IBM-Regular';
+    color: rgb(255, 255, 255);
+    background-color: black;
+    opacity: 0.7;
+    border-radius: 25px;
+}
+
+#type {
+    font-family: 'IBM-Regular';
+    list-style-type: none;
+    list-style-position: inside;
+}

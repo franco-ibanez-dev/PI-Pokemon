@@ -1,22 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import style from './pokemonCard.module.css';
 
 export default function PokemonCard({ sprite, name, types, id }) {
 
     let key = 1;
 
     return (
-        <div>
+        <div className={style.card}>
             <Link to={`/detail/${id}`}>
                 <img
-                    className="pokeSprite"
+                    className={style.sprite}
                     src={sprite ? sprite : "../../images/pokemon.png"}
                     alt={`A CGI representation of the ${name} pokemon`}
-                    height="200px" width="200px"
                 />
             </Link>
-            <h2>{name}</h2>
-            <ul>{
+            <h2 id={style.name}>{name}</h2>
+            <ul id={style.types}>{
                 types.map((element) => {
                     key++;
                     return (
