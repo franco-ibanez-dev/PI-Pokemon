@@ -1,3 +1,4 @@
+import style from './createPokemon.module.css'
 import { useEffect, useState } from "react";
 import React from 'react';
 import { useDispatch, useSelector } from "react-redux";
@@ -138,24 +139,26 @@ export default function CreatePokemon() {
         history.push('/home')
     }
 
-
     useEffect(() => {
         dispatch(getTypes())
     }, [])
 
     return (
-        <div>
-            <Link to="/home"><button>Back home</button></Link>
-            <h1>Create a Pokemon of your own!</h1>
-            <form onSubmit={(e) => { handleSubmit(e) }}>
+        <div id={style.generalContainer}>
+            <Link to="/home"><button id={style.button}>Back home</button></Link>
+            <h1 id={style.title}>Create a Pokemon of your own!</h1>
+            <form
+                id={style.form}
+                onSubmit={(e) => { handleSubmit(e) }}>
                 {
-                    stat && stat.map((elm) => {
+                    stat && stat.map((elm, index) => {
                         return (
-                            <div>
-                                <label>{elm === "sprite" ? "Image: " : `${elm[0].toUpperCase()}${elm.substr(1)}: `}</label>
+                            <div className={style[elm]}>
+                                <label id={style[`${elm}_label`]}>{elm === "sprite" ? "Image: " : `${elm[0].toUpperCase()}${elm.substr(1)}: `}</label>
                                 {elm !== "types" ?
                                     (<input
                                         className={errors[elm] && "danger"}
+                                        id={style[`${elm}_input`]}
                                         type={elm === "name" || elm === "sprite" ? "text" : "number"}
                                         value={input[elm]}
                                         name={elm}
@@ -179,16 +182,20 @@ export default function CreatePokemon() {
                                         </select>
                                     )
                                 }
-                                {errors[elm] && <label>{errors[elm]}</label>}
+                                {errors[elm] && <label className={style.warning} id={style[`${elm}_warning`]}>{errors[elm]}</label>}
                             </div>
                         )
                     })
                 }
-                {input.types.length !== 0 && <p>Types: {input.types.map((elm) => `${elm}, `)}</p>}
+                {input.types.length !== 0 && <p id={style.types}>Types: {input.types.map((elm) => `${elm}, `)}</p>}
                 <div>
-                    <input disabled={input.name === "" || input.sprite === "" || input.attack === 0
-                        || input.defense === 0 || input.speed === 0 || input.life === 0
-                        || input.height === 0 || input.weight === 0 || input.types.length === 0 ? true : false} type="submit" value="Submit" />
+                    <input
+                        id={style.submitButton}
+                        disabled={input.name === "" || input.sprite === "" || input.attack === 0
+                            || input.defense === 0 || input.speed === 0 || input.life === 0
+                            || input.height === 0 || input.weight === 0 || input.types.length === 0 ? true : false}
+                        type="submit"
+                        value="Submit" />
                 </div>
             </form >
         </div >
