@@ -94,49 +94,49 @@ __IMPORTANT__: It isn't allowed the use of external libraries to apply styles to
 
 #### Necessary technologies
 
-- [ ] React
-- [ ] Redux
-- [ ] Express
-- [ ] Sequelize - Postgres
+- [x] React
+- [x] Redux
+- [x] Express
+- [x] Sequelize - Postgres
 
 ## Frontend
 
 It must be developed an React/Redux application that contains the following screens/routes.
 
 __Landing Page__: You must build a landing page with:
-- [ ] Some background image representative of the project theme.
-- [ ] A button to go into the home page (`main route`)
+- [x] Some background image representative of the project theme.
+- [x] A button to go into the home page (`main route`)
 
 __Main Route__: It must contain:
 
-- [ ] Search input to find pokemons by name(The search must be precise, it must only retrieve it if the entered name is complete.)
-- [ ] An area where the listed pokemons will be. At the beginning it must charge the first results obtained from the `GET /pokemons` route and it must show its:
+- [x] Search input to find pokemons by name(The search must be precise, it must only retrieve it if the entered name is complete.)
+- [x] An area where the listed pokemons will be. At the beginning it must charge the first results obtained from the `GET /pokemons` route and it must show its:
     - Image
     - Name
     - Types (Electric, Fire, Water and so on)
-- [ ] Buttons/Options to either sort by ascending or descending order the pokemons, to sort them by alphabetical order and to sort them by attack.
-- [ ] Pagination to search and show the next pokemons, 12 pokemons by page.
+- [x] Buttons/Options to either sort by ascending or descending order the pokemons, to sort them by alphabetical order and to sort them by attack.
+- [x] Pagination to search and show the next pokemons, 12 pokemons by page.
 
 __IMPORTANT__: Inside the maini route it must be shown both the pokemons originated on the API and those originated on the database. Secondly, if you study the endpoint that returns all the pokemons you'll see that it doesn't show its information but and URL to do another request a subresquest to obtain the data from there. You'll have to make a subrequest per pokemon to obtain its image and types. Because this can make the search to slow, you can limit the total result to 40 pokemon.
 
 __Pokemon's details route__: It must contain:
-- [ ] The fields shown on the main route for each pokemon (image, name and types).
-- [ ] Pokemon's number (id)
-- [ ] Statistics (Life, attack, defense, velocitiy)
-- [ ] Height and weight.
+- [x] The fields shown on the main route for each pokemon (image, name and types).
+- [x] Pokemon's number (id)
+- [x] Statistics (Life, attack, defense, velocitiy)
+- [x] Height and weight.
 
 __Creation route__: It must cotain:
 
-- [ ] A __JavaScript controlled__ form with the mentioned fields on the Pokemon details.
-- [ ] The option to select/add more than one pokemon type.
-- [ ] Button/Option to create a new Pokemon.
+- [x] A __JavaScript controlled__ form with the mentioned fields on the Pokemon details.
+- [x] The option to select/add more than one pokemon type.
+- [x] Button/Option to create a new Pokemon.
 
 > It is a requirement that the creation form is validated with JavaScript and not only with HTML validations. You can add the validations you want. By example: The Pokemon's name can't contain numeric characters, the heigth can't be major that certain value, and so on.
 
 ## Database
 The database model must have the followings entities (Those properties mark with asterisk must be mandatory):
 
-- [ ] Pokemon with the following properties:
+- [x] Pokemon with the following properties:
     - ID (Pokemon number) * : It can not be an ID from an existing pokeapi pokemon.
     - Name *
     - Attack
@@ -145,7 +145,7 @@ The database model must have the followings entities (Those properties mark with
     - Height
     - Weight
 
- - [ ] Type with the followings properties:
+ - [x] Type with the followings properties:
     - ID
     - Name
 
@@ -160,16 +160,16 @@ You must develope a Node/Express server with the followings routes:
 
 __IMPORTANT__: It's not allowed to use the filters, sorts and paginations offered by the external API, all of the functionalities must be developed by you.
 
-- [ ] __GET /pokemons__:
+- [x] __GET /pokemons__:
     - Retrieve a pokemons list from pokeapi.
     - Return only the necessary data for the main page.
-- [ ] __GET /pokemons/{idPokemon}__:
+- [x] __GET /pokemons/{idPokemon}__:
     - Obtain detailed pokemon on particular.
     - It must retrieve only the data ask by the Pokemon's deatails route.
     - Consider that it must work with an external api originated id and the database originated id.
-- [ ] __GET /pokemons?name="..."__:
+- [x] __GET /pokemons?name="..."__:
     - Obtain the pokemon whose name match the name brought by the query parameter (It can be from pokeapi or created by us.)
-- [ ] __GET /types__:
+- [x] __GET /types__:
     -  Obtain all pokemons types availables.
     -  At first you must obtain them from the external API then save them on your database to finally use them from there.
 
