@@ -1,98 +1,98 @@
 ![HenryLogo](https://d31uz8lwfmyn8g.cloudfront.net/Assets/logo-henry-white-lg.png)
 
-# Individual Project - Henry Pokemon
+# Indivual Project - Henry Pokemon
 
-<img height="150" src="./pokemon.png" />
+<img height='150' src='./pokemon.png'>
 
-## Objetivos del Proyecto
+## Project's Goals
 
-- Construir una App utlizando React, Redux, Node y Sequelize.
-- Afirmar y conectar los conceptos aprendidos en la carrera.
-- Aprender mejores prácticas.
-- Aprender y practicar el workflow de GIT.
-- Usar y practicar testing.
+- Build an App using React, Redux, Node and Sequelize.
+- Improve and connect concepts learned on the bootcamp.
+- Learn the best practices.
+- Use and practice testing.
 
-## Horarios y Fechas
+## Dates and times
 
-El proyecto tendrá una duración máxima de tres semanas. En el caso de que completan todas las tareas antes de dicho lapso podrán avisar a su Instructor para coordinar una fecha de presentación del trabajo (DEMO).
+The project will last up to three weeks. In case of finishing all homeworks before that time, you may inform your Instructor in order to coordinate a DEMO meeting.
 
-## Comenzando
+## Starting
 
- 1. Forkear el repositorio para tener una copia del mismo en sus cuentas
- 2. Clonar el repositorio en sus computadoras para comenzar a trabajar
+1. Fork the repository to have a copy on your github account.
+2. Clone the respository on your computers to start working.
 
-Tendrán un `boilerplate` con la estructura general tanto del servidor como de cliente.
+You'll have a `boilerplate` with the server and client general structure.
 
-__IMPORTANTE:__ Es necesario contar minimamente con la última versión estable de Node y NPM. Asegurarse de contar con ella para poder instalar correctamente las dependecias necesarias para correr el proyecto.
+__IMPORTANT:__ Is mandatory to have at least the last NODE and NPM stable version.
 
-Actualmente las versiónes necesarias son:
+Currently those are:
+-__Node__: 12.18.3 or mayor
+-__NPM__: 6.14.16 or mayor
 
-- __Node__: 12.18.3 o mayor
-- __NPM__: 6.14.16 o mayor
-
-Para verificar que versión tienen instalada:
+To verify the installed version:
 
 ```bash
 node -v
 npm -v
 ```
 
-__ACLARACIÓN:__ Las dependencias actuales se encuentran en las versiones que venimos trabajando durante el bootcamp.
+__Clarification__: The current dependencies are the same versions that we've been working on the bootcamp.
 
-Versiones:
+Versions:
 
-- __react__: 17.0.1
-- __react-dom__: 17.0.1
-- __react-router-dom__: 5.2.0
-- __redux__: 4.0.5
-- __react-redux__: 7.2.3
+-__react__: 17.0.1
+-__react-dom__: 17.0.1
+-__react-router-dom__: 5.2.0
+-__redux__: 4.0.5
+-__react-redux__: 7.2.3
 
-Está permitido, __bajo su responsabilidad__, actualizar las dependencias a versiones más actuales.
+It's allowed, under your responsability, to update those dependencies to later versions.
 
-> __IMPORTANTE:__ Versiones mas actuales podrían presentar configuraciones diferentes respecto a las versiones en las que venimos trabajando durante el bootcamp.
+> __IMPORTANT:__ Later versions could have another settings that the ones we've been working on the bootcamp.
 
 ## BoilerPlate
 
-El boilerplate cuenta con dos carpetas: `api` y `client`. En estas carpetas estará el código del back-end y el front-end respectivamente.
+It's have two folders: `api` and `client`. Inside of them it'll be the back-end and front-end code respectively.
 
-En `api` crear un archivo llamado: `.env` que tenga la siguiente forma:
+On `api` you must create a file named: `.env` with the following content:
 
 ```env
-DB_USER=usuariodepostgres
-DB_PASSWORD=passwordDePostgres
+DB_USER=postgresUser
+DB_PASWORD=postgresPassword
 DB_HOST=localhost
 ```
+You must replace both `postgresUser` and `postgresPassword` in order to connect to postgres. This file will be ignored by git on the github upload, because contains sensitive data (your credentials).
 
-Reemplazar `usuariodepostgres` y `passwordDePostgres` con tus propias credenciales para conectarte a postgres. Este archivo va ser ignorado en la subida a github, ya que contiene información sensible (las credenciales).
+In addition it will necessary that you create a database named `pokemon` on psql.
 
-Adicionalmente será necesario que creen desde psql una base de datos llamada `pokemon`
+The `client` content was created using: 
+```
+npx create-react-app
+```
 
-El contenido de `client` fue creado usando: Create React App.
+## Statement
 
-## Enunciado
+The overall idea is create an  application on which it can be visualized each Pokemon using the external api [pokeapi](hhtps://pokeapi.co/) and on top of that, other things like:
 
-La idea general es crear una aplicación en la cual se puedan ver los distintos Pokemon utilizando la api externa [pokeapi](https://pokeapi.co/) y a partir de ella poder, entre otras cosas:
+- Search for pokemons
+- Filter them / Sort them
+- Create new pokemons
 
-- Buscar pokemons
-- Filtrarlos / Ordenarlos
-- Crear nuevos pokemons
+__IMPORTANT__: For the filter and sort functionalities the api's endpoints that already return sorted or filtered results can not be used, becuase you must create  your own. In particularly one of them sorting or filtering must be done entirely on the front-end.
 
-__IMPORTANTE__: Para las funcionalidades de filtrado y ordenamiento NO pueden utilizar los endpoints de la API externa que ya devuelven los resultados filtrados u ordenados sino que deben realizarlo ustedes mismos. En particular alguno de los ordenamientos o filtrados debe si o si realizarse desde el frontend.
+### The only Endpoints/Flags allowed to use:
 
-### Únicos Endpoints/Flags que pueden utilizar
-
-- GET <https://pokeapi.co/api/v2/pokemon>
+- GET <https://pokeeapi.co/api/v2/pokemon>
 - GET <https://pokeapi.co/api/v2/pokemon/{id}>
 - GET <https://pokeapi.co/api/v2/pokemon/{name}>
 - GET <https://pokeapi.co/api/v2/type>
 
-### Requerimientos mínimos
+### Minimum requirements
+Next minimun requiriments to pass the individual project will be detailed. Those who want to add functionalities can do so. 
+About visual design there will not be predefined wireframes nor prototypes, you'll be free to do as you wish, but you have to apply the knowledge you saw on the course to make it pleasent to the eye.
 
-A continuación se detallaran los requerimientos mínimos para la aprobación del proyecto individial. Aquellos que deseen agregar más funcionalidades podrán hacerlo. En cuanto al diseño visual no va a haber wireframes ni prototipos prefijados sino que tendrán libertad de hacerlo a su gusto pero tienen que aplicar los conocimientos de estilos vistos en el curso para que quede agradable a la vista.
+__IMPORTANT__: It isn't allowed the use of external libraries to apply styles to the application. You'll have to use CSS on some of the ways we saw them on class (pure CSS, CSS Modules or Styled Components).
 
-__IMPORTANTE__: No se permitirá utilizar librerías externas para aplicar estilos a la aplicación. Tendrán que utilizar CSS con algunas de las opciones que vimos en dicha clase (CSS puro, CSS Modules o Styled Components)
-
-#### Tecnologías necesarias
+#### Necessary technologies
 
 - [x] React
 - [x] Redux
@@ -101,88 +101,81 @@ __IMPORTANTE__: No se permitirá utilizar librerías externas para aplicar estil
 
 ## Frontend
 
-Se debe desarrollar una aplicación de React/Redux que contenga las siguientes pantallas/rutas.
+It must be developed an React/Redux application that contains the following screens/routes.
 
-__Pagina inicial__: deben armar una landing page con
+__Landing Page__: You must build a landing page with:
+- [x] Some background image representative of the project theme.
+- [x] A button to go into the home page (`main route`)
 
-- [x] Alguna imagen de fondo representativa al proyecto
-- [x] Botón para ingresar al home (`Ruta principal`)
+__Main Route__: It must contain:
 
-__Ruta principal__: debe contener
+- [x] Search input to find pokemons by name(The search must be precise, it must only retrieve it if the entered name is complete.)
+- [x] An area where the listed pokemons will be. At the beginning it must charge the first results obtained from the `GET /pokemons` route and it must show its:
+    - Image
+    - Name
+    - Types (Electric, Fire, Water and so on)
+- [x] Buttons/Options to either sort by ascending or descending order the pokemons, to sort them by alphabetical order and to sort them by attack.
+- [x] Pagination to search and show the next pokemons, 12 pokemons by page.
 
-- [x] Input de búsqueda para encontrar pokemons por nombre (La búsqueda será exacta, es decir solo encontrará al pokemon si se coloca el nombre completo)
-- [x] Área donde se verá el listado de pokemons. Al iniciar deberá cargar los primeros resultados obtenidos desde la ruta `GET /pokemons` y deberá mostrar su:
-  - Imagen
-  - Nombre
-  - Tipos (Electrico, Fuego, Agua, etc)
-- [x] Botones/Opciones para filtrar por tipo de pokemon y por pokemon existente o creado por nosotros
-- [x] Botones/Opciones para ordenar tanto ascendentemente como descendentemente los pokemons por orden alfabético y por ataque
-- [x] Paginado para ir buscando y mostrando los siguientes pokemons, 12 pokemons por pagina.
+__IMPORTANT__: Inside the maini route it must be shown both the pokemons originated on the API and those originated on the database. Secondly, if you study the endpoint that returns all the pokemons you'll see that it doesn't show its information but and URL to do another request a subresquest to obtain the data from there. You'll have to make a subrequest per pokemon to obtain its image and types. Because this can make the search to slow, you can limit the total result to 40 pokemon.
 
-__IMPORTANTE__: Dentro de la Ruta Principal se deben mostrar tanto los pokemons traidos desde la API como así también las de la base de datos. Por otro lado, si revisan el endpoint que trae todos los pokemons verán que no muestra la información del pokemon sino una URL para hacer un subrequest y obtener los datos de allí. Tendrán que por cada pokemon que van a mostrar hacer otro request a esa URL para obtener su imagen y tipos. Debido a que esto puede hacer que la búsqueda sea muy lenta limitar el resultado total a 40 pokemons totales.
+__Pokemon's details route__: It must contain:
+- [x] The fields shown on the main route for each pokemon (image, name and types).
+- [x] Pokemon's number (id)
+- [x] Statistics (Life, attack, defense, velocitiy)
+- [x] Height and weight.
 
-__Ruta de detalle de Pokemon__: debe contener
+__Creation route__: It must cotain:
 
-- [x] Los campos mostrados en la ruta principal para cada pokemon (imagen, nombre y tipos)
-- [x] Número de Pokemon (id)
-- [x] Estadísticas (vida, ataque, defensa, velocidad)
-- [x] Altura y peso
+- [x] A __JavaScript controlled__ form with the mentioned fields on the Pokemon details.
+- [x] The option to select/add more than one pokemon type.
+- [x] Button/Option to create a new Pokemon.
 
-__Ruta de creación__: debe contener
+> It is a requirement that the creation form is validated with JavaScript and not only with HTML validations. You can add the validations you want. By example: The Pokemon's name can't contain numeric characters, the heigth can't be major that certain value, and so on.
 
-- [ ] Un formulario __controlado con JavaScript__ con los campos mencionados en el detalle del Pokemon
-- [ ] Posibilidad de seleccionar/agregar más de un tipo de Pokemon
-- [ ] Botón/Opción para crear un nuevo Pokemon
+## Database
+The database model must have the followings entities (Those properties mark with asterisk must be mandatory):
 
-> Es requisito que el formulario de creación esté validado con JavaScript y no sólo con validaciones HTML. Pueden agregar las validaciones que consideren. Por ejemplo: Que el nombre del Pokemon no pueda contener caracteres numéricos, que la altura no pueda ser superior a determinado valor, etc.
+- [x] Pokemon with the following properties:
+    - ID (Pokemon number) * : It can not be an ID from an existing pokeapi pokemon.
+    - Name *
+    - Attack
+    - Defense 
+    - Speed
+    - Height
+    - Weight
 
-## Base de datos
+ - [x] Type with the followings properties:
+    - ID
+    - Name
 
-El modelo de la base de datos deberá tener las siguientes entidades (Aquellas propiedades marcadas con asterísco deben ser obligatorias):
+The relationship between them must be many-to-many because one pokemon may belong to more than one type and a type may include many pokemons.
 
-- [x] Pokemon con las siguientes propiedades:
-  - ID (Número de Pokemon) * : No puede ser un ID de un pokemon ya existente en la API pokeapi
-  - Nombre *
-  - Vida
-  - Ataque
-  - Defensa
-  - Velocidad
-  - Altura
-  - Peso
-- [x] Tipo con las siguientes propiedades:
-  - ID
-  - Nombre
+__IMPORTANT__: Meditate about the best way to assign IDs to database originated pokemons. There is more than one way to do it. When we click one pokemon this may come from the external API or your own database. It can't be ambiguity on the data shown at the details route, they must belong to the correct pokemon.
 
-La relación entre ambas entidades debe ser de muchos a muchos ya que un pokemon puede pertenecer a más de un tipo y, a su vez, un tipo puede incluir a muchos pokemons.
-
-__IMPORTANTE__: Pensar como modelar los IDs de los pokemons en la base de datos. Existen distintas formas correctas de hacerlo pero tener en cuenta que cuando hagamos click en alguno, este puede provenir de la API o de la Base de Datos por lo que cuando muestre su detalle no debería haber ambigüedad en cual se debería mostrar. Por ejemplo si en la API el pokemon `Bulbasaur` tiene id = 1 y en nuestra base de datos creamos un nuevo pokemon `Henry` con id = 1, ver la forma de diferenciarlos cuando querramos acceder al detalle del mismo.
 
 ## Backend
 
-Se debe desarrollar un servidor en Node/Express con las siguientes rutas:
+You must develope a Node/Express server with the followings routes:
 
-__IMPORTANTE__: No está permitido utilizar los filtrados, ordenamientos y paginados brindados por la API externa, todas estas funcionalidades tienen que implementarlas ustedes.
+__IMPORTANT__: It's not allowed to use the filters, sorts and paginations offered by the external API, all of the functionalities must be developed by you.
 
 - [x] __GET /pokemons__:
-  - Obtener un listado de los pokemons desde pokeapi.
-  - Debe devolver solo los datos necesarios para la ruta principal
+    - Retrieve a pokemons list from pokeapi.
+    - Return only the necessary data for the main page.
 - [x] __GET /pokemons/{idPokemon}__:
-  - Obtener el detalle de un pokemon en particular
-  - Debe traer solo los datos pedidos en la ruta de detalle de pokemon
-  - Tener en cuenta que tiene que funcionar tanto para un id de un pokemon existente en pokeapi o uno creado por ustedes
+    - Obtain detailed pokemon on particular.
+    - It must retrieve only the data ask by the Pokemon's deatails route.
+    - Consider that it must work with an external api originated id and the database originated id.
 - [x] __GET /pokemons?name="..."__:
-  - Obtener el pokemon que coincida exactamente con el nombre pasado como query parameter (Puede ser de pokeapi o creado por nosotros)
-  - Si no existe ningún pokemon mostrar un mensaje adecuado
-- [x] __POST /pokemons__:
-  - Recibe los datos recolectados desde el formulario controlado de la ruta de creación de pokemons por body
-  - Crea un pokemon en la base de datos relacionado con sus tipos.
+    - Obtain the pokemon whose name match the name brought by the query parameter (It can be from pokeapi or created by us.)
 - [x] __GET /types__:
-  - Obtener todos los tipos de pokemons posibles
-  - En una primera instancia deberán traerlos desde pokeapi y guardarlos en su propia base de datos y luego ya utilizarlos desde allí
+    -  Obtain all pokemons types availables.
+    -  At first you must obtain them from the external API then save them on your database to finally use them from there.
 
 ## Testing
+- [ ] At least one component from the frontend must have its tests.
+- [ ] At least one route from the backend must have its tests.
+- [ ] At least one model from the database must have its tests.
 
-- [ ] Al menos tener un componente del frontend con sus tests respectivos
-- [ ] Al menos tener una ruta del backend con sus tests respectivos
-- [ ] Al menos tener un modelo de la base de datos con sus tests respectivos
-# PI-Pokemon
+# Pokemon-Individual-Project
