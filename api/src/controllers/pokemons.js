@@ -129,6 +129,19 @@ async function getPokemonById(req, res, next) {
 
 }
 
+async function deletePokemon(req, res, next) {
+    const id = req.params.id;
+    try {
+        return Pokemon.destroy({
+            where: { id: id }
+        })
+            .then(() => res.status(200).send("That pokemon was deleted succesfully"))
+            .catch(error => next(error))
+    } catch (error) {
+        next(error)
+    }
+}
+
 async function postPokemon(req, res, next) {
     const name = req.body.name.toLowerCase()
     const { life, attack, sprite, defense, speed, height, weight, types } = req.body;
@@ -165,5 +178,6 @@ async function postPokemon(req, res, next) {
 module.exports = {
     getPokemons,
     getPokemonById,
-    postPokemon
+    postPokemon,
+    deletePokemon,
 }

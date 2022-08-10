@@ -1,17 +1,24 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { getDetail } from '../../redux/actions/index.js';
+import { useHistory } from 'react-router-dom';
+import { getDetail, resetDetail } from '../../redux/actions/index.js';
 import style from './pokemonDetail.module.css'
 
 export function PokemonDetails(props) {
     // console.log(props);
     // const [pokemon, setPokemon] = useState({})
+    const history = useHistory();
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(getDetail(props.match.params.id))
     }, [dispatch])
+
+    const handleOnClick = (e) => {
+        e.preventDefault();
+        dispatch(resetDetail())
+        history.push('/home')
+    }
 
     const myPokemon = useSelector((state) => {
         return state.detail
@@ -39,13 +46,12 @@ export function PokemonDetails(props) {
                     </div> :
                     <p>Loading...</p>
             }
-            <Link to="/home">
-                <button
-                    id={style.back}
-                    className={style.button}
-                >Back home
-                </button>
-            </Link>
+            <button
+                id={style.back}
+                className={style.button}
+                onClick={(e) => handleOnClick(e)}
+            >Back home
+            </button>
         </div>
     )
 }

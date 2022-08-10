@@ -144,7 +144,6 @@ export default function Home() {
                         <option value="ownDB">Created</option>
                     </select>
                 </div>
-
                 <div>
                     <Pagination
                         pokemonsPerPage={pokemonsPerPage}

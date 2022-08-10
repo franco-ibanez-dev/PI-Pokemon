@@ -1,4 +1,4 @@
-import style from './createPokemon.module.css'
+    import style from './createPokemon.module.css'
 import { useEffect, useState } from "react";
 import React from 'react';
 import { useDispatch, useSelector } from "react-redux";
@@ -32,7 +32,7 @@ export function validate(input, name, value) {
     switch (name) {
         case "name":
             !input[name] ? errors[name] = noName : !validName.test(input[name]) ? errors[name] = invalidName : delete errors[name];
-            break;
+            break;  
         case "sprite":
             !input[name] ? errors[name] = noUrl : !validUrl.test(input[name]) ? errors[name] = invalidUrl : delete errors[name];
             break;
@@ -87,13 +87,14 @@ export default function CreatePokemon() {
         weight: 0,
         types: [],
     })
+    // console.log(`Soy el input types: ${input.types}`)
     const [errors, setErrors] = useState({})
 
-    const handleInputChange = (e) => {
+    const handleInputChange = (e) => { 
         const { name, value } = e.target;
         // console.log({ name, value });
         if (name === "types") {
-            setErrors(validate({ ...input, [name]: [...input[name], value] }, name, value))
+            setErrors(...errors, validate({ ...input, [name]: [...input[name], value] }, name, value))
         } else {
             setErrors(validate({ ...input, [name]: value }, name))
         }

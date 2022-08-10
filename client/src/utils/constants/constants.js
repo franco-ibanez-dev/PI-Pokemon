@@ -3,6 +3,7 @@ export const POKEMON_URL = BASE_URL + "/pokemons"
 export const TYPES_URL = BASE_URL + "/types"
 export const GET_POKEMON_BY_NAME = POKEMON_URL + "?name="
 export const GET_POKEMON_BY_ID = POKEMON_URL + "/"
+export const RESET_DETAIL = "RESET_DETAIL"
 
 export const POST_POKEMON = 'POST_POKEMON'
 export const GET_POKEMONS = 'GET_POKEMONS'
