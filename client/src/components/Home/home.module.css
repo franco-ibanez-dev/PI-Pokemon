@@ -25,7 +25,7 @@
     justify-content: left;
     flex-flow: column;
     flex-wrap: wrap;
-    width: fixed;
+    max-width: 300px;
 }
 
 #createButton {
