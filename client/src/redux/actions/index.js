@@ -10,8 +10,8 @@ import {
     ORDER_BY_ATTACK,
     GET_POKEMON_BY_NAME,
     GET_POKEMON_BY_ID,
-    GET_DETAIL,
-    RESET_DETAIL
+    RESET_DETAIL,
+    REFRESH_POKEMONS
 } from '../../utils/constants/constants'
 
 
@@ -23,6 +23,28 @@ export function postPokemon(payload) {
             return response;
         } catch (error) {
             console.log(error);
+        }
+    }
+}
+
+export function refreshPokemons(){
+    const makeItOneArray = (array) => {
+        let arr = [];
+        array.forEach((subArray) => subArray.forEach((obj) => arr.push(obj)))
+        return arr;
+    }
+    return async function (dispatch) {
+        try {
+            const json = await axios.get(POKEMON_URL);
+            const pokemonsArray = makeItOneArray(json.data)
+            return dispatch({
+                type: REFRESH_POKEMONS,
+                payload: pokemonsArray
+            })
+
+        } catch (error) {
+            console.log(error.response.data);
+
         }
     }
 }

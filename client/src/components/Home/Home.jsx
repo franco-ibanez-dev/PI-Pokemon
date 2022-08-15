@@ -8,7 +8,8 @@ import {
     filterPokemonsByType,
     filterPokemonsByOrigin,
     orderPokemonsByAttack,
-    orderPokemonsByName
+    orderPokemonsByName,
+    refreshPokemons
 } from '../../redux/actions';
 import { Link } from 'react-router-dom';
 import PokemonCard from '../PokemonCard/PokemonCard.jsx';
@@ -56,7 +57,7 @@ export default function Home() {
 
     const handleClick = (event) => {
         event.preventDefault();
-        dispatch(getPokemons());
+        dispatch(refreshPokemons());
     }
     // console.log(allPokemons);
 

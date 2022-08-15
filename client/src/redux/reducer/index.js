@@ -8,7 +8,8 @@ import {
     GET_POKEMON_BY_NAME,
     POST_POKEMON,
     GET_POKEMON_BY_ID,
-    RESET_DETAIL
+    RESET_DETAIL,
+    REFRESH_POKEMONS
 } from "../../utils/constants/constants";
 
 const initialState = {
@@ -26,6 +27,13 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 detail: action.payload
+            }
+
+        case REFRESH_POKEMONS:
+            return {
+                ...state,
+                pokemons: action.payload,
+                allPokemons: action.payload
             }
 
         case GET_POKEMONS:
