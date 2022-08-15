@@ -1,4 +1,4 @@
-export const BASE_URL = "http://localhost:3001"
+export const BASE_URL = "https://pokemon-ibanez.herokuapp.com"
 export const POKEMON_URL = BASE_URL + "/pokemons"
 export const TYPES_URL = BASE_URL + "/types"
 export const GET_POKEMON_BY_NAME = POKEMON_URL + "?name="
