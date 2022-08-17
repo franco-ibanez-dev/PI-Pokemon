@@ -11,9 +11,22 @@
 - Learn the best practices.
 - Use and practice testing.
 
-## Dates and times
+## Some ScreenShots
+### This is the landingpage:
+<img src="assets/images/landing_page.jpg">
 
-The project will last up to three weeks. In case of finishing all homeworks before that time, you may inform your Instructor in order to coordinate a DEMO meeting.
+
+### This is the homepage:
+<img src="assets/images/homepage.jpg">
+
+
+### This is the detail route:
+<img src="assets/images/detail_route.png">
+
+
+### This is the creation form:
+<img src="assets/images/creation_form.jpg">
+
 
 ## Starting
 
